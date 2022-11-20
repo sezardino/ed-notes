@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 
-import { PrismaService } from '../persistance/persistance.service';
+import { PrismaService } from '@/modules/persistance/persistance.service';
 
 @Injectable()
 export class UserService {
