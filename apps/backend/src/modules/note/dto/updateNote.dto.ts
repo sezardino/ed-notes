@@ -1,7 +1,7 @@
-import { Note } from '@prisma/client';
 import { IsBoolean, IsOptional, IsString } from 'class-validator';
+import { IUpdateNoteDto } from 'shared';
 
-export class UpdateNoteDto implements Pick<Note, 'name' | 'body' | 'categories' | 'isPublic'> {
+export class UpdateNoteDto implements IUpdateNoteDto {
 	@IsOptional()
 	@IsString()
 	name: string;
