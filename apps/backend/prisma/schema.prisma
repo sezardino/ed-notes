@@ -11,7 +11,18 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       String @id @default(uuid())
   username String @unique
   password String
+  notes    Note[]
+}
+
+model Note {
+  id         String   @id @default(uuid())
+  name       String
+  body       String   @default("")
+  categories String[] @default([])
+  owner      User     @relation(fields: [ownerId], references: [id])
+  ownerId    String
+  isPublic   Boolean  @default(false)
 }
