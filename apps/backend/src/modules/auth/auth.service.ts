@@ -2,7 +2,8 @@ import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { compare, genSalt, hash } from 'bcrypt';
 
-import { UserService } from '../user/user.service';
+import { UserService } from '@/modules/user/user.service';
+
 import { AuthDto } from './dto/auth.dto';
 
 @Injectable()
