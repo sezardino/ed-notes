@@ -8,7 +8,8 @@ type ButtonVariant =
   | "light"
   | "green"
   | "red"
-  | "yellow";
+  | "yellow"
+  | "link";
 
 type ButtonSizes = "xs" | "sm" | "base" | "lg" | "xl";
 
@@ -47,6 +48,7 @@ export const Button: React.FC<Props> = (props) => {
     red: "text-white bg-red-700 hover:bg-red-800 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900",
     yellow:
       "text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-yellow-300 dark:focus:ring-yellow-900",
+    link: "font-medium text-blue-600 dark:text-blue-500 hover:underline hover:underline",
   };
 
   const sizes: Record<ButtonSizes, string> = {
@@ -57,20 +59,23 @@ export const Button: React.FC<Props> = (props) => {
     xl: "py-3.5 px-6 text-base",
   };
 
+  const buttonStyles = twMerge(
+    commonStyles,
+    styles[variant],
+    variant !== "link" && sizes[size],
+    className
+  );
+
   if (href) {
     return (
-      <a {...rest} href={href} className={twMerge(styles[variant], className)}>
+      <a {...rest} href={href} className={buttonStyles}>
         {text}
       </a>
     );
   }
 
   return (
-    <button
-      {...rest}
-      type={type}
-      className={twMerge(commonStyles, styles[variant], sizes[size], className)}
-    >
+    <button {...rest} type={type} className={buttonStyles}>
       {text}
     </button>
   );
