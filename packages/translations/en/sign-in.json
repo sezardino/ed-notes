@@ -1,0 +1,17 @@
+{
+  "title": "Sign in to your account",
+  "username": {
+    "label": "Your username",
+    "placeholder": "racoon23"
+  },
+  "password": {
+    "label": "Your password",
+    "placeholder": "123Qwerty"
+  },
+  "remember": "Remember me",
+  "button": "Sign In",
+  "cta": {
+    "text": "Don’t have an account yet?",
+    "link": "Sign Up"
+  }
+}

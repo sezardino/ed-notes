@@ -3,3 +3,4 @@ export * from "./components/FormField";
 export * from "./components/Input";
 export * from "./components/Textarea";
 export * from "./components/Toggle";
+export * from "./components/Typography";

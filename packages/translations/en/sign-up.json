@@ -1,0 +1,25 @@
+{
+  "title": "Create new account",
+  "username": {
+    "label": "Create unique username",
+    "placeholder": "unique-unicorn42"
+  },
+  "password": {
+    "label": "Create not simple password",
+    "placeholder": "123Qwerty"
+  },
+  "repeat-password": {
+    "label": "Please repeat your password",
+    "placeholder": "123Qwerty1"
+  },
+  "remember": "Remember me",
+  "button": "Sign Up",
+  "cta": {
+    "text": "Already have an Account?",
+    "link": "Sign In"
+  },
+  "accept": {
+    "text": "With registration you are accept our",
+    "link": "Privacy policy"
+  }
+}
