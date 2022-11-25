@@ -1,0 +1,22 @@
+{
+  "create default component jsx": {
+    "prefix": "frc",
+    "body": [
+      "import React from \"react\";",
+      "",
+      "import { twMerge } from \"tailwind-merge\";",
+      "",
+      "",
+      "interface Props extends React.HTMLProps<HTMLDivElement> {}",
+      "",
+      "export const ${TM_FILENAME_BASE}: React.FC<Props> = (props) => {",
+      "  const { className, ...rest} = props;",
+      "",
+      "  return <div {...rest} className={twMerge(className)}>${1}</div>;",
+      "};",
+      "",
+      ""
+    ],
+    "description": "create default component"
+  }
+}

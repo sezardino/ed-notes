@@ -1,7 +1,7 @@
-import { User } from '@prisma/client';
 import { IsNotEmpty, IsString } from 'class-validator';
+import { IAuthDto } from 'shared';
 
-export class AuthDto implements Pick<User, 'username' | 'password'> {
+export class AuthDto implements IAuthDto {
 	@IsString()
 	@IsNotEmpty()
 	username: string;

@@ -1,0 +1,20 @@
+{
+  "title": "Sign in to your account",
+  "username": {
+    "label": "Your username",
+    "placeholder": "racoon23",
+    "required": "Username is required field"
+  },
+  "password": {
+    "label": "Your password",
+    "placeholder": "123Qwerty",
+    "required": "Password is required field",
+    "min": "Password should be min {{min}} characters"
+  },
+  "remember": "Remember me",
+  "button": "Sign In",
+  "cta": {
+    "text": "Don’t have an account yet?",
+    "link": "Sign Up"
+  }
+}
