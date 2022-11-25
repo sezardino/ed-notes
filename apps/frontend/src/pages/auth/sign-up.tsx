@@ -5,12 +5,12 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { IAuthDto, IProtectedUser } from "shared";
 
-import { AuthLayout } from "@/components/layout/Auth/Auth";
+import { AuthLayout } from "@/components/layout/Auth";
 import { SignUp } from "@/components/templates/SignUp/SignUp";
 
 export default function SignUpPage() {
-  const { mutateAsync: signUpHandler, isLoading } = useMutation(
-    (dto: IAuthDto) => axios.post<IProtectedUser>("/api/auth/sign-up", dto)
+  const { mutateAsync: signUpHandler } = useMutation((dto: IAuthDto) =>
+    axios.post<IProtectedUser>("/api/auth/sign-up", dto)
   );
 
   return (

@@ -1,0 +1,9 @@
+{
+  "header": {
+    "logo": "ED-NOTES",
+    "sign-in": "Sign In",
+    "sign-up": "Get Started",
+    "logout": "Log Out"
+  },
+  "sidebar": {}
+}

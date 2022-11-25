@@ -13,6 +13,7 @@
   ],
   "rules": {
     "@typescript-eslint/no-empty-interface": [
+      "error",
       {
         "allowSingleExtends": true
       }
