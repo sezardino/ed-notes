@@ -18,7 +18,9 @@ export const SignInForm: React.FC<Props> = (props) => {
     try {
       await submitHandler(data);
       reset();
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   return (

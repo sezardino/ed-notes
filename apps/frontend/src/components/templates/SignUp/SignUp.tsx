@@ -1,7 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { AuthRoutes, IAuthDto } from "shared";
-import { twMerge } from "tailwind-merge";
 import { Button, Typography } from "ui";
 
 import { SignUpForm } from "@/components/auth/SignUpForm";
