@@ -10,7 +10,7 @@ interface Props
   isTextarea?: boolean;
 }
 
-export const InputField: React.FC<Props> = (props) => {
+const FormFieldComponent = (props: Props, ref: any) => {
   const { isTextarea = false, label, error, className, ...rest } = props;
   const hasError = Boolean(error);
 
@@ -20,15 +20,20 @@ export const InputField: React.FC<Props> = (props) => {
 
   const field = isTextarea ? (
     <Textarea
+      ref={ref}
       {...(rest as React.HTMLProps<HTMLTextAreaElement>)}
       className="mt-2"
     />
   ) : (
-    <Input {...(rest as React.HTMLProps<HTMLInputElement>)} className="mt-2" />
+    <Input
+      ref={ref}
+      {...(rest as React.HTMLProps<HTMLInputElement>)}
+      className="mt-2"
+    />
   );
 
   return (
-    <div className="pb-7 relative">
+    <div className="pb-6 relative">
       <label
         className={twMerge(
           labelCommonStyles,
@@ -47,3 +52,5 @@ export const InputField: React.FC<Props> = (props) => {
     </div>
   );
 };
+
+export const FormField = React.forwardRef(FormFieldComponent);

@@ -1,13 +1,16 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { AuthRoutes } from "shared";
+import { AuthRoutes, IAuthDto } from "shared";
 import { Button, Typography } from "ui";
 
 import { SignInForm } from "@/components/auth/SignInForm";
 
-interface Props {}
+interface Props {
+  signInHandler: (dto: IAuthDto) => void;
+}
 
-export const SignIn: React.FC<Props> = () => {
+export const SignIn: React.FC<Props> = (props) => {
+  const { signInHandler } = props;
   const { t } = useTranslation();
 
   return (
@@ -15,7 +18,7 @@ export const SignIn: React.FC<Props> = () => {
       <Typography tag="h1" styling="h4">
         {t("sign-in:title")}
       </Typography>
-      <SignInForm />
+      <SignInForm submitHandler={signInHandler} />
       <Typography styling="p" className="mt-4">
         {t("sign-in:cta.text")}{" "}
         <Button

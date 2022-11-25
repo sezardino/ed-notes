@@ -7,7 +7,7 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
   sizing?: InputSizing;
 }
 
-export const Input: React.FC<Props> = (props) => {
+const InputComponent = (props: Props, ref: any) => {
   const { sizing = "base", className, ...rest } = props;
 
   const commonStyles =
@@ -21,8 +21,11 @@ export const Input: React.FC<Props> = (props) => {
 
   return (
     <input
+      ref={ref}
       {...rest}
       className={twMerge(commonStyles, sizes[sizing], className)}
     />
   );
 };
+
+export const Input = React.forwardRef(InputComponent);

@@ -5,6 +5,8 @@ export interface IUser {
   notes?: INote[];
 }
 
+export type IProtectedUser = Omit<IUser, "password">;
+
 export interface INote {
   id: string;
   name: string;

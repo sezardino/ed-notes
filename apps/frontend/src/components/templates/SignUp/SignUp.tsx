@@ -1,14 +1,17 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { AuthRoutes } from "shared";
+import { AuthRoutes, IAuthDto } from "shared";
 import { twMerge } from "tailwind-merge";
 import { Button, Typography } from "ui";
 
 import { SignUpForm } from "@/components/auth/SignUpForm";
 
-interface Props {}
+interface Props {
+  signUpHandler: (dto: IAuthDto) => void;
+}
 
-export const SignUp: React.FC<Props> = () => {
+export const SignUp: React.FC<Props> = (props) => {
+  const { signUpHandler } = props;
   const { t } = useTranslation();
 
   return (
@@ -16,7 +19,7 @@ export const SignUp: React.FC<Props> = () => {
       <Typography tag="h1" styling="h4">
         {t("sign-up:title")}
       </Typography>
-      <SignUpForm />
+      <SignUpForm submitHandler={signUpHandler} />
       <Typography styling="p" className="mt-4">
         {t("sign-up:cta.text")}{" "}
         <Button

@@ -1,11 +1,18 @@
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
+import { IAuthDto, IProtectedUser } from "shared";
 
 import { AuthLayout } from "@/components/layout/Auth/Auth";
 import { SignUp } from "@/components/templates/SignUp/SignUp";
 
 export default function SignUpPage() {
+  const { mutateAsync: signUpHandler, isLoading } = useMutation(
+    (dto: IAuthDto) => axios.post<IProtectedUser>("/api/auth/sign-up", dto)
+  );
+
   return (
     <>
       <Head>
@@ -14,7 +21,7 @@ export default function SignUpPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <AuthLayout>
-        <SignUp />
+        <SignUp signUpHandler={signUpHandler} />
       </AuthLayout>
     </>
   );

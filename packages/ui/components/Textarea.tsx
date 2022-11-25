@@ -3,11 +3,12 @@ import { twMerge } from "tailwind-merge";
 
 interface Props extends React.HTMLProps<HTMLTextAreaElement> {}
 
-export const Textarea: React.FC<Props> = (props) => {
+const TextareaComponent = (props: Props, ref: any) => {
   const { className, ...rest } = props;
 
   return (
     <textarea
+      ref={ref}
       {...rest}
       rows={4}
       className={twMerge(
@@ -16,3 +17,5 @@ export const Textarea: React.FC<Props> = (props) => {
     />
   );
 };
+
+export const Textarea = React.forwardRef(TextareaComponent);

@@ -2,15 +2,21 @@
   "title": "Create new account",
   "username": {
     "label": "Create unique username",
-    "placeholder": "unique-unicorn42"
+    "placeholder": "unique-unicorn42",
+    "required": "Username is required field",
+    "in-use": "{{username}} already in use"
   },
   "password": {
     "label": "Create not simple password",
-    "placeholder": "123Qwerty"
+    "placeholder": "123Qwerty",
+    "required": "Password is required field",
+    "min": "Password should be min {{min}} characters"
   },
   "repeat-password": {
     "label": "Please repeat your password",
-    "placeholder": "123Qwerty1"
+    "placeholder": "123Qwerty1",
+    "required": "Password is required field",
+    "match": "Password mismatch"
   },
   "remember": "Remember me",
   "button": "Sign Up",
