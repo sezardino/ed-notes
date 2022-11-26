@@ -14,7 +14,12 @@ const links: SidebarLink[] = [
   {
     label: "Notes",
     href: DashboardRoutes.Notes,
-    icon: "MdOutlineStickyNote2",
+    icon: "MdOutlineNote",
+  },
+  {
+    label: "Add Note",
+    href: DashboardRoutes.AddNote,
+    icon: "MdOutlineNoteAdd",
   },
 ];
 
