@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { AuthRoutes, IAuthDto } from "shared";
 import { Button, Typography } from "ui";
 
-import { SignInForm } from "@/components/auth/SignInForm";
+import { SignInForm } from "@/components/modules/auth/SignInForm";
 
 interface Props {
   signInHandler: (dto: IAuthDto) => void;

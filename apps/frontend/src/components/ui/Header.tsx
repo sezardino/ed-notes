@@ -40,7 +40,7 @@ export const Header: React.FC<Props> = (props) => {
         "bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800"
       )}
     >
-      <nav className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+      <nav className="flex flex-wrap gap-2 justify-between items-center mx-auto max-w-screen-xl">
         <Link href={"/"} legacyBehavior>
           <a className="flex items-center">
             <Logo width="45" height="45" />

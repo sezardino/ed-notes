@@ -5,5 +5,8 @@
     "sign-up": "Get Started",
     "logout": "Log Out"
   },
-  "sidebar": {}
+  "sidebar": {
+    "open": "Open Sidebar",
+    "close": "Close Sidebar"
+  }
 }
