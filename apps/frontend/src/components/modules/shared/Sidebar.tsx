@@ -11,7 +11,6 @@ export interface SidebarLink {
 }
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
-  isOpen: boolean;
   links: SidebarLink[];
   extraLinks?: SidebarLink[];
   footerLinks?: SidebarLink[];
@@ -62,12 +61,18 @@ export const Sidebar: React.FC<Props> = (props) => {
     <aside
       {...rest}
       className={twMerge(
-        "sticky top-0 left-0 w-64 h-full transition-[width]",
+        "sticky top-0 left-0  h-full max-sm:fixed max-sm:-translate-x-full transition-transform",
+        isOpen && "max-sm:translate-x-0",
         className
       )}
       aria-label="Sidebar navigation"
     >
-      <div className={twMerge("h-full", isOpen ? "" : "w-full max-sm:hidden")}>
+      <div
+        className={twMerge(
+          "relative w-full transition-[width] h-full max-sm:w-64",
+          !isOpen ? "" : "sm:w-64"
+        )}
+      >
         <div className="overflow-y-auto py-5 px-3 h-full bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
           <ul className="space-y-2">
             {links.map((link) => (
@@ -98,15 +103,27 @@ export const Sidebar: React.FC<Props> = (props) => {
             ))}
           </ul>
         )}
+        <button
+          className={twMerge(
+            "absolute top-2 right-0 translate-x-1/2 rounded-full border bg-white border-gray-200 dark:bg-gray-800 max-sm:hidden",
+            !isOpen && "rotate-180"
+          )}
+          onClick={toggleOpen}
+        >
+          <Icon name="MdKeyboardArrowRight" size={16} />
+          <span className="sr-only">
+            {t(`ui:sidebar.${isOpen ? "close" : "open"}`)}
+          </span>
+        </button>
       </div>
       <button
         className={twMerge(
-          "absolute top-2 right-0 translate-x-1/2 rounded-full border bg-white border-gray-200 dark:bg-gray-800",
+          "p-2 absolute bottom-5 -right-5 translate-x-full rounded-full border bg-white border-gray-200 dark:bg-gray-800 sm:hidden",
           !isOpen && "rotate-180"
         )}
         onClick={toggleOpen}
       >
-        <Icon name="MdKeyboardArrowRight" size={16} />
+        <Icon name={isOpen ? "MdClose" : "MdMenu"} size={24} />
         <span className="sr-only">
           {t(`ui:sidebar.${isOpen ? "close" : "open"}`)}
         </span>

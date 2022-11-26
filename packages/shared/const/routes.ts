@@ -6,7 +6,6 @@ export const AuthRoutes = {
 export const DashboardRoutes = {
   Dashboard: "/dashboard",
   Notes: "/notes",
-  Note: "/notes/",
 } as const;
 
 export const ProfileRoutes = {

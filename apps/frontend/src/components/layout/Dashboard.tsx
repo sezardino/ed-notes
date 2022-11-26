@@ -1,4 +1,5 @@
 import React from "react";
+import { DashboardRoutes } from "shared";
 import { twMerge } from "tailwind-merge";
 
 import { Sidebar, SidebarLink } from "../modules/shared/Sidebar";
@@ -6,14 +7,14 @@ import { Header } from "../ui/Header";
 
 const links: SidebarLink[] = [
   {
-    label: "Notes",
-    href: "#",
-    icon: "MdOutlineStickyNote2",
+    label: "Dashboard",
+    href: DashboardRoutes.Dashboard,
+    icon: "MdDashboard",
   },
   {
-    label: "Add Note",
-    href: "#",
-    icon: "MdOutlineNoteAdd",
+    label: "Notes",
+    href: DashboardRoutes.Notes,
+    icon: "MdOutlineStickyNote2",
   },
 ];
 
