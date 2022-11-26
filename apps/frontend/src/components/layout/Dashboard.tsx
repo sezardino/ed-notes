@@ -2,8 +2,8 @@ import React from "react";
 import { DashboardRoutes } from "shared";
 import { twMerge } from "tailwind-merge";
 
-import { Sidebar, SidebarLink } from "../modules/shared/Sidebar";
 import { Header } from "../ui/Header";
+import { Sidebar, SidebarLink } from "../ui/Sidebar";
 
 const links: SidebarLink[] = [
   {
@@ -29,9 +29,9 @@ export const DashboardLayout: React.FC<Props> = (props) => {
       className={twMerge("grid grid-rows-[auto_1fr] min-h-screen", className)}
     >
       <Header />
-      <div className="h-full grid grid-cols-[auto_1fr]">
+      <div className="h-full grid sm:grid-cols-[auto_1fr]">
         <Sidebar links={links} />
-        <main>{children}</main>
+        <main className="w-full">{children}</main>
       </div>
     </div>
   );

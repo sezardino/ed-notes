@@ -1,7 +1,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-type InputSizing = "sm" | "base" | "lg";
+export type InputSizing = "sm" | "base" | "lg";
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
   sizing?: InputSizing;

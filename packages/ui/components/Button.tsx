@@ -22,7 +22,7 @@ interface Props {
   className?: string;
 }
 
-export const Button: React.FC<Props> = (props) => {
+const ButtonComponent = (props: Props, ref: any) => {
   const {
     text,
     size = "base",
@@ -68,15 +68,17 @@ export const Button: React.FC<Props> = (props) => {
 
   if (href) {
     return (
-      <a {...rest} href={href} className={buttonStyles}>
+      <a ref={ref} {...rest} href={href} className={buttonStyles}>
         {text}
       </a>
     );
   }
 
   return (
-    <button {...rest} type={type} className={buttonStyles}>
+    <button ref={ref} {...rest} type={type} className={buttonStyles}>
       {text}
     </button>
   );
 };
+
+export const Button = React.forwardRef(ButtonComponent);
