@@ -1,0 +1,9 @@
+{
+  "title": "Notes",
+  "subtitle": "Here you can find all of your notes",
+  "search": {
+    "label": "Search note",
+    "button": "Search",
+    "placeholder": "Name, Category, Something in body..."
+  }
+}

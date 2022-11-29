@@ -33,10 +33,10 @@ export const DashboardLayout: React.FC<Props> = (props) => {
       {...rest}
       className={twMerge("grid grid-rows-[auto_1fr] min-h-screen", className)}
     >
-      <Header />
+      <Header isDashboard />
       <div className="h-full grid sm:grid-cols-[auto_1fr]">
         <Sidebar links={links} />
-        <main className="w-full">{children}</main>
+        <main className="w-full max-w-7xl px-12 py-16">{children}</main>
       </div>
     </div>
   );

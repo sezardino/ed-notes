@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { DashboardRoutes, ICreateNoteDto } from "shared";
 
 import { DashboardLayout } from "@/components/layout/Dashboard";
-import { CreateNote } from "@/components/modules/dashboard/CreateNote";
+import { CreateNote } from "@/components/templates/CreateNote/CreateNote";
 
 export default function Dashboard() {
   const router = useRouter();

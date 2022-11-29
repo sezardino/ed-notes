@@ -9,7 +9,8 @@ type TypographyStyling =
   | "h5"
   | "h6"
   | "p"
-  | "leading";
+  | "leading"
+  | "capture";
 type TypographyTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
 type TypographyVariant = "default" | "light";
 
@@ -47,6 +48,7 @@ export const Typography: React.FC<Props> = (props) => {
     h6: "text-lg font-bold",
     p: "font-light",
     leading: "text-lg font-light md:text-xl",
+    capture: "text-xs",
   };
 
   return (

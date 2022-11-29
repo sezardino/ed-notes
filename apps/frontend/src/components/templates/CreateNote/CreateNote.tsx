@@ -41,40 +41,38 @@ export const CreateNote: React.FC<Props> = (props) => {
   return (
     <div {...rest} className={twMerge(className)}>
       <section className="bg-white dark:bg-gray-900">
-        <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-          <Typography styling="h3" text={t("title") || ""} />
-          <form className="mt-5" onSubmit={onSubmit}>
-            <FormField
-              {...register("name", { required: t("name.required") || "" })}
-              label={t("name.label")}
-              placeholder={t("name.placeholder") || ""}
-              sizing="lg"
-              error={formState.errors.name?.message}
+        <Typography styling="h3" text={t("title") || ""} />
+        <form className="mt-5" onSubmit={onSubmit}>
+          <FormField
+            {...register("name", { required: t("name.required") || "" })}
+            label={t("name.label")}
+            placeholder={t("name.placeholder") || ""}
+            sizing="lg"
+            error={formState.errors.name?.message}
+          />
+
+          <FormField
+            {...register("categories")}
+            label={t("categories.label")}
+            placeholder={t("categories.placeholder") || ""}
+            sizing="lg"
+            error={formState.errors.categories?.message}
+          />
+
+          <Toggle {...register("isPublic")} label={t("is-public.label")} />
+
+          <div>
+            <Typography text={t("body.label") || ""} />
+            <Editor
+              value={body}
+              onValueChange={setBody}
+              placeholder={t("body.placeholder") || ""}
+              className="mt-2"
             />
+          </div>
 
-            <FormField
-              {...register("categories")}
-              label={t("categories.label")}
-              placeholder={t("categories.placeholder") || ""}
-              sizing="lg"
-              error={formState.errors.categories?.message}
-            />
-
-            <Toggle {...register("isPublic")} label={t("is-public.label")} />
-
-            <div>
-              <Typography text={t("body.label") || ""} />
-              <Editor
-                value={body}
-                onValueChange={setBody}
-                placeholder={t("body.placeholder") || ""}
-                className="mt-2"
-              />
-            </div>
-
-            <Button size="xl" text="Add Note" className="mt-5" type="submit" />
-          </form>
-        </div>
+          <Button size="xl" text="Add Note" className="mt-5" type="submit" />
+        </form>
       </section>
     </div>
   );

@@ -61,7 +61,7 @@ export const Sidebar: React.FC<Props> = (props) => {
     <aside
       {...rest}
       className={twMerge(
-        "sticky top-0 left-0  h-full max-sm:fixed max-sm:-translate-x-full transition-transform",
+        "sticky top-0 left-0  h-full max-sm:fixed max-sm:-translate-x-full max-sm:z-10 transition-transform",
         isOpen && "max-sm:translate-x-0",
         className
       )}
