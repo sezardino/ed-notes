@@ -1,0 +1,71 @@
+.body {
+  @apply text-base lg:text-xl
+  leading-7
+  text-gray-600
+  dark:text-gray-400;
+}
+
+.body > * {
+  @apply my-4 sm:my-5;
+}
+
+.body a {
+  @apply text-blue-700 hover:underline underline-offset-2;
+}
+
+.body ol,
+.body ul {
+  @apply my-5 pl-8;
+}
+
+.body li {
+  @apply pl-3;
+}
+
+.body ol {
+  @apply list-decimal;
+}
+
+.body ul {
+  @apply list-disc;
+}
+
+.body h1,
+.body h2,
+.body h3,
+.body h4,
+.body h5,
+.body h6,
+.body blockquote,
+.body b,
+.body strong {
+  @apply text-black dark:text-white font-bold;
+}
+
+.body h1 {
+  @apply text-5xl font-extrabold;
+}
+
+.body h2 {
+  @apply text-4xl font-bold;
+}
+
+.body h3 {
+  @apply text-3xl font-bold;
+}
+
+.body h4 {
+  @apply text-2xl font-bold;
+}
+
+.body h5 {
+  @apply text-xl font-bold;
+}
+
+.body h6 {
+  @apply text-lg font-bold;
+}
+
+.body blockquote {
+  @apply flex before:w-2 before:bg-slate-400 before:mr-4;
+}
