@@ -1,4 +1,5 @@
 export * from "./components/Button";
+export * from "./components/Dropdown";
 export * from "./components/FormField";
 export * from "./components/Icon";
 export * from "./components/Input";
