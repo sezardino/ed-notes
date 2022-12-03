@@ -16,9 +16,12 @@ export const NoteItem: React.FC<Props> = (props) => {
   const dropdownItems = [
     {
       label: "Show",
+      onClick: () => router.push(DashboardRoutes.EditNote(note.id)),
+    },
+    {
+      label: "Edit",
       onClick: () => router.push(DashboardRoutes.Note + note.id),
     },
-    { label: "Edit", onClick: () => console.log("click") },
     { label: "Delete", onClick: () => console.log("click") },
   ];
 

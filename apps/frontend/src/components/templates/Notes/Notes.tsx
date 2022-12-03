@@ -16,7 +16,7 @@ export const NotesTemplate: React.FC<Props> = (props) => {
   const { t } = useTranslation("notes");
 
   const searchHandler = async () => console.log("search");
-  console.log(notes);
+
   return (
     <div {...rest} className={twMerge(className)}>
       <div className="flex gap-4 justify-between items-center flex-wrap">

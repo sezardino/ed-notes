@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { INote } from "shared";
+import { DashboardRoutes, INote } from "shared";
 import { twMerge } from "tailwind-merge";
 import { Button, Typography } from "ui";
 
@@ -45,7 +45,11 @@ export const NoteTemplate: React.FC<Props> = (props) => {
         <Typography tag="h1" styling="h1" text={note.name} />
 
         <div className="flex flex-wrap items-center gap-2">
-          <Button size="xs" text={t("edit")} />
+          <Button
+            size="xs"
+            text={t("edit")}
+            href={DashboardRoutes.EditNote(note.id)}
+          />
           <Button
             size="xs"
             variant="alternative"
