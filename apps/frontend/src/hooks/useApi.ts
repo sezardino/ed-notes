@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-interface UseApiArgs {
+interface UseApiArgs<ReturnData> {
   endpoint: string;
   params?: Record<string, unknown>;
   onError?: () => void;
-  onSuccess?: () => void;
+  onSuccess?: (data: ReturnData) => void;
 }
 
-export const useApi = <ReturnData>(args: UseApiArgs) => {
+export const useApi = <ReturnData>(args: UseApiArgs<ReturnData>) => {
   const { onError, onSuccess, endpoint, params = {} } = args;
   return useQuery(
     [endpoint, Object.values(params)],

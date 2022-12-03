@@ -7,13 +7,16 @@ import { Button, Typography } from "ui";
 import styles from "./Note.module.css";
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
-  note: Pick<INote, "body" | "categories" | "name">;
+  note?: INote;
 }
 
 export const NoteTemplate: React.FC<Props> = (props) => {
   const { note, className, ...rest } = props;
-  const hasCategories = Boolean(note.categories.length);
   const { t } = useTranslation("note");
+
+  if (!note) return null;
+
+  const hasCategories = Boolean(note.categories.length);
 
   const categoriesInner = (
     <div className="mt-5">
@@ -41,7 +44,7 @@ export const NoteTemplate: React.FC<Props> = (props) => {
       <header className="flex flex-wrap gap-5 justify-between items-center">
         <Typography tag="h1" styling="h1" text={note.name} />
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Button size="xs" text={t("edit")} />
           <Button
             size="xs"

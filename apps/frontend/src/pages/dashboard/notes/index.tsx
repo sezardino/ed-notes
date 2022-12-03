@@ -6,10 +6,10 @@ import { DashboardLayout } from "@/components/layout/Dashboard";
 import { NotesTemplate } from "@/components/templates/Notes/Notes";
 
 import { useApi } from "@/hooks";
-import { ApiNoteResponse } from "@/pages/api/dashboard/notes";
+import { ApiNotesResponse } from "@/pages/api/dashboard/notes";
 
 const Notes = () => {
-  const { data } = useApi<ApiNoteResponse>({
+  const { data } = useApi<ApiNotesResponse>({
     endpoint: "/api/dashboard/notes",
   });
 

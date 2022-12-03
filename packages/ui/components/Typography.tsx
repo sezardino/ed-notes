@@ -40,12 +40,12 @@ export const Typography: React.FC<Props> = (props) => {
   };
 
   const styles: Record<TypographyStyling, string> = {
-    h1: "text-5xl font-extrabold",
-    h2: "text-4xl font-bold",
-    h3: "text-3xl font-bold",
-    h4: "text-2xl font-bold",
+    h1: "text-5xl font-extrabold max-sm:text-3xl",
+    h2: "text-4xl font-bold max-sm:text-2xl",
+    h3: "text-3xl font-bold max-sm:text-xl",
+    h4: "text-2xl font-bold max-sm:text-lg",
     h5: "text-xl font-bold",
-    h6: "text-lg font-bold",
+    h6: "text-lg font-bold ",
     p: "font-light",
     leading: "text-lg font-light md:text-xl",
     capture: "text-xs",
