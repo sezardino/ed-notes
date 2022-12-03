@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { ICreateNoteDto, ICreateNoteForm } from "shared";
+import { ICreateNoteForm, INote } from "shared";
 import { twMerge } from "tailwind-merge";
 import { Button, FormField, Toggle, Typography } from "ui";
 
@@ -12,25 +12,35 @@ const Editor = dynamic(() => import("ui/components/Editor"), {
 });
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
-  onCreateNote: (dto: ICreateNoteDto) => void;
+  note?: INote;
+  onCrud: (dto: any) => Promise<void>;
 }
 
-export const CreateNote: React.FC<Props> = (props) => {
-  const { onCreateNote, className, ...rest } = props;
-  const [body, setBody] = useState("");
-  const { register, handleSubmit, formState, reset } =
-    useForm<ICreateNoteForm>();
-  const { t } = useTranslation("create-note");
+export const CrudNote: React.FC<Props> = (props) => {
+  const { onCrud, note, className, ...rest } = props;
+  const [body, setBody] = useState(note?.body || "");
+  const { register, handleSubmit, formState, reset } = useForm<ICreateNoteForm>(
+    {
+      defaultValues: {
+        categories: note?.categories.join(" "),
+        isPublic: note?.isPublic,
+        name: note?.name,
+      },
+    }
+  );
+  const isEdit = Boolean(note);
+  const { t } = useTranslation("crud-note");
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     try {
       const categories = data.categories.trim().split(" ").filter(Boolean);
 
-      onCreateNote({
+      await onCrud({
         ...data,
         body,
         categories,
       });
+
       reset();
       setBody("");
     } catch (error) {
@@ -41,7 +51,10 @@ export const CreateNote: React.FC<Props> = (props) => {
   return (
     <div {...rest} className={twMerge(className)}>
       <section className="bg-white dark:bg-gray-900">
-        <Typography styling="h3" text={t("title") || ""} />
+        <Typography
+          styling="h3"
+          text={t(isEdit ? "edit-title" : "create-title") || ""}
+        />
         <form className="mt-5" onSubmit={onSubmit}>
           <FormField
             {...register("name", { required: t("name.required") || "" })}
@@ -71,7 +84,12 @@ export const CreateNote: React.FC<Props> = (props) => {
             />
           </div>
 
-          <Button size="xl" text="Add Note" className="mt-5" type="submit" />
+          <Button
+            size="xl"
+            text={t(isEdit ? "edit-button" : "create-button")}
+            className="mt-5"
+            type="submit"
+          />
         </form>
       </section>
     </div>

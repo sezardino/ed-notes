@@ -1,5 +1,8 @@
 {
-  "title": "Add new note",
+  "create-title": "Add new note",
+  "edit-title": "Edit note",
+  "edit-button": "Save",
+  "create-button": "Create",
   "name": {
     "label": "Name",
     "placeholder": "Create ...",
