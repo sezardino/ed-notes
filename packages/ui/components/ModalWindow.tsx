@@ -2,13 +2,13 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 
 type ModalSizes = "sm" | "default" | "lg" | "xl";
-interface Props extends React.HTMLProps<HTMLDivElement> {
+export interface ModalProps extends React.HTMLProps<HTMLDivElement> {
   isOpen: boolean;
   closeHandler: () => void;
   sizing?: ModalSizes;
 }
 
-export const ModalWindow: React.FC<Props> = (props) => {
+export const ModalWindow: React.FC<ModalProps> = (props) => {
   const {
     sizing = "default",
     closeHandler,

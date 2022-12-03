@@ -13,16 +13,17 @@ type ButtonVariant =
 
 type ButtonSizes = "xs" | "sm" | "base" | "lg" | "xl";
 
-interface Props {
+export interface ButtonProps {
   text: string;
   variant?: ButtonVariant;
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"];
   size?: ButtonSizes;
   href?: string;
+  onClick?: () => void;
   className?: string;
 }
 
-const ButtonComponent = (props: Props, ref: any) => {
+const ButtonComponent = (props: ButtonProps, ref: any) => {
   const {
     text,
     size = "base",
