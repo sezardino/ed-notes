@@ -14,11 +14,6 @@ const Note = () => {
   const { data } = useApi<ApiNoteResponse>({
     endpoint: "/api/dashboard/note",
     params: { id: router.query.id },
-    onSuccess(data) {
-      if (data?.note) return;
-
-      router.push("/404");
-    },
   });
 
   return (
