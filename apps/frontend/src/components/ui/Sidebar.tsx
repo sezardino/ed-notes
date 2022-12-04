@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { twMerge } from "tailwind-merge";
@@ -18,28 +19,29 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
 
 interface SidebarLinkProps extends React.HTMLProps<HTMLLIElement> {
   link: SidebarLink;
-  isSidebarOpen: boolean;
+  isLabelShowed: boolean;
   hideLabel?: boolean;
+  isActive: boolean;
 }
 
 const SidebarLink: React.FC<SidebarLinkProps> = (props) => {
-  const { isSidebarOpen, link, hideLabel, className, ...rest } = props;
+  const { isLabelShowed, isActive, link, hideLabel, className, ...rest } =
+    props;
 
   return (
     <li {...rest} className={twMerge(className)}>
       <Link legacyBehavior href={link.href}>
         <a
-          href="#"
-          className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+          className={twMerge(
+            "flex items-center p-2 text-base font-normal text-gray-400 dark:text-gray-400 rounded-lg dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700",
+            isActive && "dark:text-white bg-gray-100 dark:bg-gray-700"
+          )}
         >
-          <Icon
-            name={link.icon}
-            className="group-hover:text-gray-900 dark:group-hover:text-white"
-          />
+          <Icon name={link.icon} className="text-inherit" />
           <span
             className={twMerge(
               "ml-3",
-              !isSidebarOpen || hideLabel ? "sr-only" : ""
+              !isLabelShowed || hideLabel ? "sr-only" : ""
             )}
           >
             {link.label}
@@ -54,15 +56,18 @@ export const Sidebar: React.FC<Props> = (props) => {
   const { links, extraLinks, footerLinks, className, ...rest } = props;
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(true);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const router = useRouter();
 
   const toggleOpen = () => setIsOpen((value) => !value);
+  const toggleMobileOpen = () => setIsMobileOpen((value) => !value);
 
   return (
     <aside
       {...rest}
       className={twMerge(
         "sticky top-0 left-0  h-full max-md:fixed max-md:-translate-x-full max-md:z-10 transition-transform",
-        isOpen && "max-md:translate-x-0",
+        isMobileOpen && "max-md:translate-x-0",
         className
       )}
       aria-label="Sidebar navigation"
@@ -76,7 +81,15 @@ export const Sidebar: React.FC<Props> = (props) => {
         <div className="overflow-y-auto py-5 px-3 h-full bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
           <ul className="space-y-2">
             {links.map((link) => (
-              <SidebarLink key={link.href} link={link} isSidebarOpen={isOpen} />
+              <SidebarLink
+                key={link.href}
+                link={link}
+                isLabelShowed={isOpen || isMobileOpen}
+                isActive={
+                  link.href === router.pathname ||
+                  router.pathname.startsWith(link.href)
+                }
+              />
             ))}
           </ul>
           {extraLinks && (
@@ -85,7 +98,8 @@ export const Sidebar: React.FC<Props> = (props) => {
                 <SidebarLink
                   key={link.href}
                   link={link}
-                  isSidebarOpen={isOpen}
+                  isLabelShowed={isOpen || isMobileOpen}
+                  isActive={link.href === router.pathname}
                 />
               ))}
             </ul>
@@ -97,8 +111,9 @@ export const Sidebar: React.FC<Props> = (props) => {
               <SidebarLink
                 key={link.href}
                 link={link}
-                isSidebarOpen={isOpen}
+                isLabelShowed={isOpen || isMobileOpen}
                 hideLabel
+                isActive={link.href === router.pathname}
               />
             ))}
           </ul>
@@ -119,13 +134,13 @@ export const Sidebar: React.FC<Props> = (props) => {
       <button
         className={twMerge(
           "p-2 absolute bottom-5 -right-5 translate-x-full rounded-full border bg-white border-gray-200 dark:bg-gray-800 md:hidden",
-          !isOpen && "rotate-180"
+          !isMobileOpen && "rotate-180"
         )}
-        onClick={toggleOpen}
+        onClick={toggleMobileOpen}
       >
-        <Icon name={isOpen ? "MdClose" : "MdMenu"} size={24} />
+        <Icon name={isMobileOpen ? "MdClose" : "MdMenu"} size={24} />
         <span className="sr-only">
-          {t(`ui:sidebar.${isOpen ? "close" : "open"}`)}
+          {t(`ui:sidebar.${isMobileOpen ? "close" : "open"}`)}
         </span>
       </button>
     </aside>
