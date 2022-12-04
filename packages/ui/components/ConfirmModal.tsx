@@ -4,16 +4,24 @@ import { Typography } from "./Typography";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-interface Props extends Omit<ModalProps, "sizing"> {
+export interface ConfirmModalProps extends ModalProps {
   title: string;
   info: string;
   confirmButton: ButtonProps;
   declineButton: ButtonProps;
+  confirmHandler: () => void;
 }
 
-export const ConfirmModal: React.FC<Props> = (props) => {
-  const { title, info, confirmButton, declineButton, className, ...rest } =
-    props;
+export const ConfirmModal: React.FC<ConfirmModalProps> = (props) => {
+  const {
+    confirmHandler,
+    title,
+    info,
+    confirmButton,
+    declineButton,
+    className,
+    ...rest
+  } = props;
 
   const declineProps: ButtonProps = {
     variant: "dark",
@@ -45,7 +53,7 @@ export const ConfirmModal: React.FC<Props> = (props) => {
           />
           <Button
             {...confirmProps}
-            onClick={() => defaultHandler(declineProps.onClick)}
+            onClick={() => defaultHandler(confirmHandler)}
           />
         </div>
       </div>

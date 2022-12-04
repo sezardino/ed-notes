@@ -9,10 +9,11 @@ import { SearchInput } from "@/components/modules/dashboard/SearchInput";
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
   notes?: INote[];
+  deleteHandler: (id: string) => Promise<void>;
 }
 
 export const NotesTemplate: React.FC<Props> = (props) => {
-  const { notes, className, ...rest } = props;
+  const { deleteHandler, notes, className, ...rest } = props;
   const { t } = useTranslation("notes");
 
   const searchHandler = async () => console.log("search");
@@ -33,7 +34,10 @@ export const NotesTemplate: React.FC<Props> = (props) => {
         <ul className="mt-10 grid gap-4 md:grid-cols-[repeat(auto-fit,minmax(300px,1fr));]">
           {notes.map((item) => (
             <li key={item.id}>
-              <NoteItem note={item} />
+              <NoteItem
+                note={item}
+                deleteHandler={() => deleteHandler(item.id)}
+              />
             </li>
           ))}
         </ul>

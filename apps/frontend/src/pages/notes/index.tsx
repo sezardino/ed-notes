@@ -13,6 +13,8 @@ const Notes = () => {
     endpoint: "/api/dashboard/notes",
   });
 
+  const deleteHandler = async (id: string) => console.log(id);
+
   return (
     <>
       <Head>
@@ -21,7 +23,7 @@ const Notes = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <NotesTemplate notes={data?.notes} />
+      <NotesTemplate notes={data?.notes} deleteHandler={deleteHandler} />
     </>
   );
 };
