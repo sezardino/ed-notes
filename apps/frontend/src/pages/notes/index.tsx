@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
+import { useState } from "react";
 
 import { DashboardLayout } from "@/components/layout/Dashboard";
 import { NotesTemplate } from "@/components/templates/Notes/Notes";
@@ -9,8 +10,11 @@ import { useApi } from "@/hooks";
 import { ApiNotesResponse } from "@/pages/api/dashboard/notes";
 
 const Notes = () => {
+  const [searchString, setSearchString] = useState("");
+
   const { data } = useApi<ApiNotesResponse>({
     endpoint: "/api/dashboard/notes",
+    params: { search: searchString },
   });
 
   const deleteHandler = async (id: string) => console.log(id);
@@ -23,7 +27,11 @@ const Notes = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <NotesTemplate notes={data?.notes} deleteHandler={deleteHandler} />
+      <NotesTemplate
+        notes={data?.notes}
+        setSearch={setSearchString}
+        deleteHandler={deleteHandler}
+      />
     </>
   );
 };

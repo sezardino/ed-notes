@@ -12,6 +12,16 @@ export default function auth(
   res: NextApiResponse<ApiNotesResponse>
 ) {
   if (req.method !== "GET") res.status(400);
+  const search = req.query.search as string;
 
-  res.status(200).json({ notes: mockNotes });
+  const notes = search
+    ? mockNotes.filter(
+        (note) =>
+          note.body.includes(search) ||
+          note.categories.includes(search) ||
+          note.name.includes(search)
+      )
+    : mockNotes;
+
+  res.status(200).json({ notes });
 }

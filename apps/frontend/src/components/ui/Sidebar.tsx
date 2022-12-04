@@ -61,15 +61,15 @@ export const Sidebar: React.FC<Props> = (props) => {
     <aside
       {...rest}
       className={twMerge(
-        "sticky top-0 left-0  h-full max-sm:fixed max-sm:-translate-x-full max-sm:z-10 transition-transform",
-        isOpen && "max-sm:translate-x-0",
+        "sticky top-0 left-0  h-full max-md:fixed max-md:-translate-x-full max-md:z-10 transition-transform",
+        isOpen && "max-md:translate-x-0",
         className
       )}
       aria-label="Sidebar navigation"
     >
       <div
         className={twMerge(
-          "relative w-full transition-[width] h-full max-sm:w-64",
+          "relative w-full transition-[width] h-full max-md:w-64",
           !isOpen ? "" : "sm:w-64"
         )}
       >
@@ -105,7 +105,7 @@ export const Sidebar: React.FC<Props> = (props) => {
         )}
         <button
           className={twMerge(
-            "absolute top-2 right-0 translate-x-1/2 rounded-full border bg-white border-gray-200 dark:bg-gray-800 max-sm:hidden",
+            "absolute top-2 right-0 translate-x-1/2 rounded-full border bg-white border-gray-200 dark:bg-gray-800 max-md:hidden",
             !isOpen && "rotate-180"
           )}
           onClick={toggleOpen}
@@ -118,7 +118,7 @@ export const Sidebar: React.FC<Props> = (props) => {
       </div>
       <button
         className={twMerge(
-          "p-2 absolute bottom-5 -right-5 translate-x-full rounded-full border bg-white border-gray-200 dark:bg-gray-800 sm:hidden",
+          "p-2 absolute bottom-5 -right-5 translate-x-full rounded-full border bg-white border-gray-200 dark:bg-gray-800 md:hidden",
           !isOpen && "rotate-180"
         )}
         onClick={toggleOpen}

@@ -5,7 +5,7 @@ import { twMerge } from "tailwind-merge";
 import { Button, Icon } from "ui";
 
 interface Props extends React.HTMLProps<HTMLFormElement> {
-  searchHandler: (value: string) => Promise<void>;
+  searchHandler: (value: string) => void;
 }
 
 export const SearchInput: React.FC<Props> = (props) => {
@@ -14,11 +14,7 @@ export const SearchInput: React.FC<Props> = (props) => {
   const { t } = useTranslation("notes");
 
   const onSubmit = handleSubmit(async (data) => {
-    try {
-      await searchHandler(data.search);
-    } catch (error) {
-      console.log(error);
-    }
+    searchHandler(data.search);
   });
 
   return (
@@ -34,12 +30,11 @@ export const SearchInput: React.FC<Props> = (props) => {
           <Icon name="MdSearch" size={20} />
         </div>
         <input
-          {...register("search", { required: true })}
+          {...register("search")}
           type="search"
           id="search-note"
           className="block w-full p-4 pl-10 pr-20 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder={t("search.placeholder") || ""}
-          required
         />
         <Button
           text={t("search.button")}

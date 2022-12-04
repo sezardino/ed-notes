@@ -7,12 +7,16 @@ export interface ApiNoteResponse {
   note?: INote;
 }
 
+interface GetParams {
+  id: string;
+}
+
 export default function auth(
   req: NextApiRequest,
   res: NextApiResponse<ApiNoteResponse>
 ) {
   if (req.method === "GET") {
-    const id = req.query.id as string;
+    const { id } = req.query as unknown as GetParams;
 
     res.status(200).json({ note: mockNotes.find((note) => note.id === id) });
   } else if (req.method === "DELETE") {

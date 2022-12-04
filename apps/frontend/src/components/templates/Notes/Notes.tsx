@@ -10,13 +10,12 @@ import { SearchInput } from "@/components/modules/dashboard/SearchInput";
 interface Props extends React.HTMLProps<HTMLDivElement> {
   notes?: INote[];
   deleteHandler: (id: string) => Promise<void>;
+  setSearch: (value: string) => void;
 }
 
 export const NotesTemplate: React.FC<Props> = (props) => {
-  const { deleteHandler, notes, className, ...rest } = props;
+  const { setSearch, deleteHandler, notes, className, ...rest } = props;
   const { t } = useTranslation("notes");
-
-  const searchHandler = async () => console.log("search");
 
   return (
     <div {...rest} className={twMerge(className)}>
@@ -26,12 +25,12 @@ export const NotesTemplate: React.FC<Props> = (props) => {
           <Typography tag="p" styling="p" text={t("subtitle") || ""} />
         </div>
         <SearchInput
-          searchHandler={searchHandler}
+          searchHandler={setSearch}
           className="w-full md:w-96 max-w-full"
         />
       </div>
       {notes && (
-        <ul className="mt-10 grid gap-4 md:grid-cols-[repeat(auto-fit,minmax(300px,1fr));]">
+        <ul className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {notes.map((item) => (
             <li key={item.id}>
               <NoteItem
