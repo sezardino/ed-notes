@@ -11,7 +11,7 @@ export const LoadingOverlay: React.FC<Props> = (props) => {
       {...rest}
       tabIndex={-1}
       className={twMerge(
-        "overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 p-4 md:inset-0 h-modal md:h-full flex justify-center items-center bg-black bg-opacity-80",
+        "overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 p-4 h-full flex justify-center items-center bg-black bg-opacity-80",
         className
       )}
     >

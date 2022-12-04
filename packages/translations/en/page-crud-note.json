@@ -1,0 +1,22 @@
+{
+  "create-title": "Add new note",
+  "edit-title": "Edit note",
+  "edit-button": "Save",
+  "create-button": "Create",
+  "name": {
+    "label": "Name",
+    "placeholder": "Create ...",
+    "required": "Name is required field"
+  },
+  "categories": {
+    "label": "Categories for note",
+    "placeholder": "sport people ..."
+  },
+  "body": {
+    "label": "Body of the note",
+    "placeholder": "Type something nice..."
+  },
+  "is-public": {
+    "label": "Should every person see this note?"
+  }
+}

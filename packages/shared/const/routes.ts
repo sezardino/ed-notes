@@ -7,6 +7,8 @@ export const DashboardRoutes = {
   Dashboard: "/dashboard",
   Notes: "/notes",
   Note: "/notes/",
+  AddNote: "/notes/add",
+  EditNote: (id: string) => `${DashboardRoutes.Note}${id}/edit`,
 } as const;
 
 export const ProfileRoutes = {

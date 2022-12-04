@@ -10,11 +10,10 @@
   },
   "dependencies": {
     "@svgr/webpack": "^6.5.1",
-    "@tanstack/react-query": "^4.16.1",
+    "@tanstack/react-query": "^4.19.0",
     "axios": "^1.2.0",
     "i18next": "^22.0.6",
     "next": "13.0.4",
-    "next-i18next": "^13.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.39.5",
@@ -22,6 +21,7 @@
     "tailwind-merge": "^1.8.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@trivago/prettier-plugin-sort-imports": "^3.4.0",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
@@ -33,6 +33,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.11",
     "next-transpile-modules": "^10.0.0",
+    "next-i18next": "^13.0.0",
     "postcss": "^8.4.19",
     "prettier": "^2.7.1",
     "shared": "*",

@@ -11,7 +11,7 @@ interface Props extends React.HTMLProps<HTMLFormElement> {
 
 export const SignUpForm: React.FC<Props> = (props) => {
   const { submitHandler, className, ...rest } = props;
-  const { t } = useTranslation();
+  const { t } = useTranslation("page-sign-up");
   const { register, handleSubmit, formState, reset, watch } =
     useForm<ISignUpForm>();
 
@@ -32,50 +32,46 @@ export const SignUpForm: React.FC<Props> = (props) => {
     >
       <FormField
         {...register("username", {
-          required: t("sign-up:username.required") || "",
+          required: t("username.required") || "",
         })}
-        label={t("sign-up:username.label")}
+        label={t("username.label")}
         type="username"
-        placeholder={t("sign-up:username.placeholder") || ""}
+        placeholder={t("username.placeholder") || ""}
         error={formState.errors.username?.message}
       />
       <FormField
         {...register("password", {
-          required: t("sign-up:password.required") || "",
+          required: t("password.required") || "",
           minLength: {
             value: PASSWORD_MIN_LENGTH,
-            message: t("sign-up:password.min", { min: PASSWORD_MIN_LENGTH }),
+            message: t("password.min", { min: PASSWORD_MIN_LENGTH }),
           },
         })}
-        label={t("sign-up:password.label")}
+        label={t("password.label")}
         type="password"
-        placeholder={t("sign-up:password.placeholder") || ""}
+        placeholder={t("password.placeholder") || ""}
         error={formState.errors.password?.message}
       />
       <FormField
         {...register("repeatPassword", {
-          required: t("sign-up:repeat-password.required") || "",
+          required: t("repeat-password.required") || "",
           validate: (val: string) => {
             if (watch("password") != val) {
-              return t("sign-up:repeat-password.match") || "";
+              return t("repeat-password.match") || "";
             }
           },
         })}
-        label={t("sign-up:repeat-password.label")}
+        label={t("repeat-password.label")}
         type="password"
-        placeholder={t("sign-up:repeat-password.placeholder") || ""}
+        placeholder={t("repeat-password.placeholder") || ""}
         error={formState.errors.repeatPassword?.message}
       />
 
       <div className="flex items-center justify-between">
-        <Toggle label={t("sign-up:remember")} />
+        <Toggle label={t("remember")} />
       </div>
 
-      <Button
-        type="submit"
-        text={t("sign-up:button")}
-        className="w-full mt-4"
-      />
+      <Button type="submit" text={t("button")} className="w-full mt-4" />
     </form>
   );
 };

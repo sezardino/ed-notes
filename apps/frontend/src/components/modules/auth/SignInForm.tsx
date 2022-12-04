@@ -11,7 +11,7 @@ interface Props extends React.HTMLProps<HTMLFormElement> {
 
 export const SignInForm: React.FC<Props> = (props) => {
   const { submitHandler, className, ...rest } = props;
-  const { t } = useTranslation();
+  const { t } = useTranslation("page-sign-in");
   const { register, handleSubmit, formState, reset } = useForm<ISignInForm>();
 
   const onSubmit = handleSubmit(async (data) => {
@@ -31,36 +31,32 @@ export const SignInForm: React.FC<Props> = (props) => {
     >
       <FormField
         {...register("username", {
-          required: t("sign-in:username.required") || "",
+          required: t("username.required") || "",
         })}
-        label={t("sign-in:username.label")}
+        label={t("username.label")}
         type="username"
-        placeholder={t("sign-in:username.placeholder") || ""}
+        placeholder={t("username.placeholder") || ""}
         error={formState.errors.username?.message}
       />
       <FormField
         {...register("password", {
-          required: t("sign-in:password.required") || "",
+          required: t("password.required") || "",
           minLength: {
             value: PASSWORD_MIN_LENGTH,
-            message: t("sign-in:password.min", { min: PASSWORD_MIN_LENGTH }),
+            message: t("password.min", { min: PASSWORD_MIN_LENGTH }),
           },
         })}
-        label={t("sign-in:password.label")}
+        label={t("password.label")}
         type="password"
-        placeholder={t("sign-in:password.placeholder") || ""}
+        placeholder={t("password.placeholder") || ""}
         error={formState.errors.password?.message}
       />
 
       <div className="mt-2 flex items-center justify-between">
-        <Toggle label={t("sign-in:remember")} />
+        <Toggle label={t("remember")} />
       </div>
 
-      <Button
-        type="submit"
-        text={t("sign-in:button")}
-        className="w-full mt-4"
-      />
+      <Button type="submit" text={t("button")} className="w-full mt-4" />
     </form>
   );
 };

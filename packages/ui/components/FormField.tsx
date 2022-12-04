@@ -1,4 +1,4 @@
-import { Input } from "./Input";
+import { Input, InputSizing } from "./Input";
 import { Textarea } from "./Textarea";
 import React from "react";
 import { twMerge } from "tailwind-merge";
@@ -8,10 +8,18 @@ interface Props
   label: string;
   error?: string;
   isTextarea?: boolean;
+  sizing?: InputSizing;
 }
 
 const FormFieldComponent = (props: Props, ref: any) => {
-  const { isTextarea = false, label, error, className, ...rest } = props;
+  const {
+    sizing,
+    isTextarea = false,
+    label,
+    error,
+    className,
+    ...rest
+  } = props;
   const hasError = Boolean(error);
 
   const labelCommonStyles = "block text-sm font-medium";
@@ -27,6 +35,7 @@ const FormFieldComponent = (props: Props, ref: any) => {
   ) : (
     <Input
       ref={ref}
+      sizing={sizing}
       {...(rest as React.HTMLProps<HTMLInputElement>)}
       className="mt-2"
     />
