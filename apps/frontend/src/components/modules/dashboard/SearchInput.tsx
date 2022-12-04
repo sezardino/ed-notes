@@ -11,7 +11,7 @@ interface Props extends React.HTMLProps<HTMLFormElement> {
 export const SearchInput: React.FC<Props> = (props) => {
   const { searchHandler, className, ...rest } = props;
   const { register, handleSubmit } = useForm<{ search: string }>();
-  const { t } = useTranslation("notes");
+  const { t } = useTranslation("page-notes");
 
   const onSubmit = handleSubmit(async (data) => {
     searchHandler(data.search);

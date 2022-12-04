@@ -11,21 +11,17 @@ interface Props {
 
 export const SignIn: React.FC<Props> = (props) => {
   const { signInHandler } = props;
-  const { t } = useTranslation();
+  const { t } = useTranslation("page-sign-in");
 
   return (
     <>
       <Typography tag="h1" styling="h4">
-        {t("sign-in:title")}
+        {t("title")}
       </Typography>
       <SignInForm submitHandler={signInHandler} />
       <Typography styling="p" className="mt-4">
-        {t("sign-in:cta.text")}{" "}
-        <Button
-          text={t("sign-in:cta.link")}
-          variant="link"
-          href={AuthRoutes.SingUP}
-        />
+        {t("cta.text")}{" "}
+        <Button text={t("cta.link")} variant="link" href={AuthRoutes.SingUP} />
       </Typography>
     </>
   );

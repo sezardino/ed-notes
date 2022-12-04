@@ -15,7 +15,7 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
 
 export const NoteItem: React.FC<Props> = (props) => {
   const { deleteHandler, note, className, ...rest } = props;
-  const { t } = useTranslation("note-item");
+  const { t } = useTranslation("component-note-item");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 

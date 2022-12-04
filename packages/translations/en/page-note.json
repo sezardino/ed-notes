@@ -1,4 +1,5 @@
 {
+  "title": "Note - {{name}}",
   "edit": "Edit",
   "delete": "Delete",
   "change-visibility": "Change Visibility",

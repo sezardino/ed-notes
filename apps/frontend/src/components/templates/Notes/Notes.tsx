@@ -15,7 +15,7 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
 
 export const NotesTemplate: React.FC<Props> = (props) => {
   const { setSearch, deleteHandler, notes, className, ...rest } = props;
-  const { t } = useTranslation("notes");
+  const { t } = useTranslation("page-notes");
 
   return (
     <div {...rest} className={twMerge(className)}>

@@ -29,7 +29,7 @@ export const CrudNote: React.FC<Props> = (props) => {
     }
   );
   const isEdit = Boolean(note);
-  const { t } = useTranslation("crud-note");
+  const { t } = useTranslation("page-crud-note");
 
   const onSubmit = handleSubmit(async (data) => {
     try {
