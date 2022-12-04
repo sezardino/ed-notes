@@ -1,5 +1,5 @@
 import { Icon } from "./Icon";
-import React from "react";
+import React, { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 
 type ModalSizes = "sm" | "default" | "lg" | "xl";
@@ -30,6 +30,20 @@ export const ModalWindow: React.FC<ModalProps> = (props) => {
 
   const onWindowClick = (evt: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
     evt.stopPropagation();
+
+  useEffect(() => {
+    const keydownHandler = (evt: KeyboardEvent) => {
+      if (evt.key !== "Escape" || !isOpen) return;
+
+      closeHandler();
+    };
+
+    document.addEventListener("keydown", keydownHandler);
+
+    return () => {
+      document.removeEventListener("keydown", keydownHandler);
+    };
+  }, [isOpen]);
 
   return (
     <div
