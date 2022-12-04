@@ -19,6 +19,7 @@ const Note = () => {
   });
 
   const deleteHandler = async () => console.log(data?.note?.id);
+  const changeVisibilityHandler = async () => console.log(data?.note?.id);
 
   return (
     <>
@@ -30,7 +31,11 @@ const Note = () => {
         </title>
       </Head>
 
-      <NoteTemplate note={data?.note} deleteHandler={deleteHandler} />
+      <NoteTemplate
+        note={data?.note}
+        deleteHandler={deleteHandler}
+        changeVisibilityHandler={changeVisibilityHandler}
+      />
     </>
   );
 };

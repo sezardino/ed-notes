@@ -2,6 +2,15 @@
   "title": "Note - {{name}}",
   "edit": "Edit",
   "delete": "Delete",
-  "change-visibility": "Change Visibility",
-  "categories": "Categories:"
+  "categories": "Categories:",
+  "change-visibility": {
+    "trigger-public": "Make Private",
+    "trigger-not-public": "Make Public",
+    "title": "Change Visibility",
+    "info-not-public": "Are you sure that you want make this note Public? (anyone can see this note)",
+    "info-public": "Are you sure that you want make this note Private? (no one can't see this note)",
+    "confirm-public": "Make it Private",
+    "confirm-not-public": "Make it Public",
+    "decline": "Decline"
+  }
 }

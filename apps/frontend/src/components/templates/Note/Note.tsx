@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { DashboardRoutes, INote } from "shared";
 import { twMerge } from "tailwind-merge";
-import { Button, Typography } from "ui";
+import { Button, ConfirmModal, Icon, Typography } from "ui";
 
 import { DeleteNoteModal } from "@/components/modules/dashboard/DeleteNoteModal";
 
@@ -11,12 +11,15 @@ import styles from "./Note.module.css";
 interface Props extends React.HTMLProps<HTMLDivElement> {
   note?: INote;
   deleteHandler: () => Promise<void>;
+  changeVisibilityHandler: () => Promise<void>;
 }
 
 export const NoteTemplate: React.FC<Props> = (props) => {
-  const { deleteHandler, note, className, ...rest } = props;
+  const { changeVisibilityHandler, deleteHandler, note, className, ...rest } =
+    props;
   const { t } = useTranslation("page-note");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isVisibilityModalOpen, setIsVisibilityModalOpen] = useState(false);
 
   if (!note) return null;
 
@@ -48,7 +51,6 @@ export const NoteTemplate: React.FC<Props> = (props) => {
       <div {...rest} className={twMerge(className)}>
         <header className="flex flex-wrap gap-5 justify-between items-center">
           <Typography tag="h1" styling="h1" text={note.name} />
-
           <div className="flex flex-wrap items-center gap-2">
             <Button
               size="xs"
@@ -58,13 +60,16 @@ export const NoteTemplate: React.FC<Props> = (props) => {
             <Button
               size="xs"
               variant="alternative"
-              text={t("change-visibility")}
+              text={t(
+                `change-visibility.trigger-${note.isPublic ? "" : "not-"}public`
+              )}
+              onClick={() => setIsVisibilityModalOpen(true)}
             />
             <Button
               size="xs"
               variant="red"
               text={t("delete")}
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => setIsDeleteModalOpen(true)}
             />
           </div>
         </header>
@@ -78,10 +83,25 @@ export const NoteTemplate: React.FC<Props> = (props) => {
           dangerouslySetInnerHTML={{ __html: note.body }}
         />
       </div>
+
       <DeleteNoteModal
-        isOpen={isModalOpen}
-        closeHandler={() => setIsModalOpen(false)}
+        isOpen={isDeleteModalOpen}
+        closeHandler={() => setIsDeleteModalOpen(false)}
         confirmHandler={deleteHandler}
+      />
+
+      <ConfirmModal
+        isOpen={isVisibilityModalOpen}
+        closeHandler={() => setIsVisibilityModalOpen(false)}
+        confirmHandler={changeVisibilityHandler}
+        title={t("change-visibility.title")}
+        info={t(`change-visibility.info-${note.isPublic ? "" : "not-"}public`)}
+        declineButton={{ text: t("change-visibility.decline") }}
+        confirmButton={{
+          text: t(
+            `change-visibility.confirm-${note.isPublic ? "" : "not-"}public`
+          ),
+        }}
       />
     </>
   );
