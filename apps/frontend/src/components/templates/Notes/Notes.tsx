@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { INote } from "shared";
+import { Note } from "shared";
 import { twMerge } from "tailwind-merge";
 import { Typography } from "ui";
 
@@ -8,7 +8,7 @@ import { NoteItem } from "@/components/modules/dashboard/NoteItem";
 import { SearchInput } from "@/components/modules/dashboard/SearchInput";
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
-  notes?: INote[];
+  notes?: Note[];
   deleteHandler: (id: string) => Promise<void>;
   setSearch: (value: string) => void;
 }

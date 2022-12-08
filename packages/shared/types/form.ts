@@ -1,12 +1,12 @@
-import { IAuthDto, ICreateNoteDto } from "./dto";
+import { AuthInput, CreateNoteInput } from "../dto";
 
-export interface ISignInForm extends Pick<IAuthDto, "username" | "password"> {}
+export interface SignInFormBody extends AuthInput {}
 
-export interface ISignUpForm extends Pick<IAuthDto, "username" | "password"> {
+export interface SignUpFormBody extends AuthInput {
   repeatPassword: string;
 }
 
-export interface ICreateNoteForm
-  extends Omit<ICreateNoteDto, "body" | "categories"> {
+export interface CrudNoteFormBody
+  extends Omit<CreateNoteInput, "body" | "categories"> {
   categories: string;
 }

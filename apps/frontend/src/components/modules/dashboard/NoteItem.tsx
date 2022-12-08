@@ -2,14 +2,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { DashboardRoutes, INote } from "shared";
+import { DashboardRoutes, Note } from "shared";
 import { twMerge } from "tailwind-merge";
 import { Dropdown, Icon, Typography } from "ui";
 
 import { DeleteNoteModal } from "./DeleteNoteModal";
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
-  note: Pick<INote, "id" | "name" | "categories">;
+  note: Pick<Note, "id" | "name" | "categories">;
   deleteHandler: () => Promise<void>;
 }
 

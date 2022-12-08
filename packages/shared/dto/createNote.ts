@@ -1,7 +1,12 @@
 import { IsBoolean, IsOptional, IsString } from 'class-validator';
-import { ICreateNoteDto } from 'shared';
 
-export class CreateNoteDto implements ICreateNoteDto {
+export interface CreateNoteInput {
+  name: string;
+  body: string;
+  isPublic: boolean;
+}
+
+export class CreateNoteDto implements CreateNoteInput  {
 	@IsString()
 	name: string;
 

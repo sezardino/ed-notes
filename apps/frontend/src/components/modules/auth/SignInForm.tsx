@@ -1,18 +1,19 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { IAuthDto, ISignInForm, PASSWORD_MIN_LENGTH } from "shared";
+import { AuthInput, PASSWORD_MIN_LENGTH, SignInFormBody } from "shared";
 import { twMerge } from "tailwind-merge";
 import { Button, FormField, Toggle } from "ui";
 
 interface Props extends React.HTMLProps<HTMLFormElement> {
-  submitHandler: (dto: IAuthDto) => void;
+  submitHandler: (dto: AuthInput) => void;
 }
 
 export const SignInForm: React.FC<Props> = (props) => {
   const { submitHandler, className, ...rest } = props;
   const { t } = useTranslation("page-sign-in");
-  const { register, handleSubmit, formState, reset } = useForm<ISignInForm>();
+  const { register, handleSubmit, formState, reset } =
+    useForm<SignInFormBody>();
 
   const onSubmit = handleSubmit(async (data) => {
     try {

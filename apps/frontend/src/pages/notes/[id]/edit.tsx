@@ -3,7 +3,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import { DashboardRoutes, IUpdateNoteDto } from "shared";
+import { DashboardRoutes, UpdateNoteInput } from "shared";
 
 import { DashboardLayout } from "@/components/layout/Dashboard";
 import { CrudNote } from "@/components/templates/CrudNote/CrudNote";
@@ -25,7 +25,7 @@ const Note = () => {
     },
   });
 
-  const editHandler = async (dto: IUpdateNoteDto) => {
+  const editHandler = async (dto: UpdateNoteInput) => {
     console.log(dto);
 
     await new Promise((res) => {

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { IUser } from 'shared';
+import { User } from 'shared';
 
 import { PrismaService } from '@/modules/persistance/persistance.service';
 
@@ -16,7 +16,7 @@ export class UserService {
 		return newUser;
 	}
 
-	async getUser(username: string): Promise<IUser | undefined> {
-		return await this.prisma.user.findUnique({ where: { username } });
+	async getUser(email: string): Promise<User | undefined> {
+		return await this.prisma.user.findUnique({ where: { email } });
 	}
 }

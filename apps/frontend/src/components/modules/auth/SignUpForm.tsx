@@ -1,19 +1,19 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { IAuthDto, ISignUpForm, PASSWORD_MIN_LENGTH } from "shared";
+import { AuthInput, PASSWORD_MIN_LENGTH, SignUpFormBody } from "shared";
 import { twMerge } from "tailwind-merge";
 import { Button, FormField, Toggle } from "ui";
 
 interface Props extends React.HTMLProps<HTMLFormElement> {
-  submitHandler: (dto: IAuthDto) => void;
+  submitHandler: (dto: AuthInput) => void;
 }
 
 export const SignUpForm: React.FC<Props> = (props) => {
   const { submitHandler, className, ...rest } = props;
   const { t } = useTranslation("page-sign-up");
   const { register, handleSubmit, formState, reset, watch } =
-    useForm<ISignUpForm>();
+    useForm<SignUpFormBody>();
 
   const onSubmit = handleSubmit(async (data) => {
     try {

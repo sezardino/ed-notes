@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { INote } from "shared";
+import { Note } from "shared";
 
 import { mockNotes } from "@/mock";
 
 export interface ApiNoteResponse {
-  note?: INote;
+  note?: Note;
 }
 
 interface GetParams {

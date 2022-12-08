@@ -1,18 +1,19 @@
-export interface IUser {
+export interface User {
   username: string;
+  email: string;
   password: string;
   id: string;
-  notes?: INote[];
+  notes?: Note[];
 }
 
-export type IProtectedUser = Omit<IUser, "password">;
+export type ProtectedUser = Omit<User, "password">;
 
-export interface INote {
+export interface Note {
   id: string;
   name: string;
   body: string;
   categories: string[];
-  owner?: IUser;
+  owner?: User;
   ownerId: string;
-  isPublic: Boolean;
+  isPublic: boolean;
 }

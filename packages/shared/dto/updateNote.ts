@@ -1,7 +1,13 @@
 import { IsBoolean, IsOptional, IsString } from 'class-validator';
-import { IUpdateNoteDto } from 'shared';
 
-export class UpdateNoteDto implements IUpdateNoteDto {
+export interface UpdateNoteInput {
+  name: string;
+  body: string;
+  categories: string[];
+  isPublic: boolean;
+}
+
+export class UpdateNoteDto implements UpdateNoteInput {
 	@IsOptional()
 	@IsString()
 	name: string;

@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { ICreateNoteForm, INote } from "shared";
+import { CrudNoteFormBody, Note } from "shared";
 import { twMerge } from "tailwind-merge";
 import { Button, FormField, Toggle, Typography } from "ui";
 
@@ -12,22 +12,21 @@ const Editor = dynamic(() => import("ui/components/Editor"), {
 });
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
-  note?: INote;
+  note?: Note;
   onCrud: (dto: any) => Promise<void>;
 }
 
 export const CrudNote: React.FC<Props> = (props) => {
   const { onCrud, note, className, ...rest } = props;
   const [body, setBody] = useState(note?.body || "");
-  const { register, handleSubmit, formState, reset } = useForm<ICreateNoteForm>(
-    {
+  const { register, handleSubmit, formState, reset } =
+    useForm<CrudNoteFormBody>({
       defaultValues: {
         categories: note?.categories.join(" "),
         isPublic: note?.isPublic,
         name: note?.name,
       },
-    }
-  );
+    });
   const isEdit = Boolean(note);
   const { t } = useTranslation("page-crud-note");
 

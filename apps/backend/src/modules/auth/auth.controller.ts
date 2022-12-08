@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { AuthDto } from 'shared';
 
 import { AuthService } from './auth.service';
-import { AuthDto } from './dto/auth.dto';
 import { AuthenticatedGuard } from './guard/authenticate.guard';
 import { LocalAuthGuard } from './guard/local.auth.guard';
 

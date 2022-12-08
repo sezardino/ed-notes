@@ -1,12 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { AuthRoutes, IAuthDto } from "shared";
+import { AuthInput, AuthRoutes } from "shared";
 import { Button, Typography } from "ui";
 
 import { SignUpForm } from "@/components/modules/auth/SignUpForm";
 
 interface Props {
-  signUpHandler: (dto: IAuthDto) => void;
+  signUpHandler: (dto: AuthInput) => void;
 }
 
 export const SignUp: React.FC<Props> = (props) => {

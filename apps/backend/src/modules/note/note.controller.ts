@@ -10,12 +10,11 @@ import {
 	Put,
 	UseGuards,
 } from '@nestjs/common';
+import { CreateNoteDto, UpdateNoteDto } from 'shared';
 
 import { UserId } from '@/decorators/user';
 import { AuthenticatedGuard } from '@/modules/auth/guard/authenticate.guard';
 
-import { CreateNoteDto } from './dto/createNote.dto';
-import { UpdateNoteDto } from './dto/updateNote.dto';
 import { NoteService } from './note.service';
 
 @Controller('note')

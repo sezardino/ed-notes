@@ -21,7 +21,7 @@ export const AppProvider: React.FC<React.PropsWithChildren> = (props) => {
 
   const value = useMemo(
     () => ({ isLoading, user, signIn, logOut, setLoading: setIsLoading }),
-    []
+    [isLoading, user]
   );
 
   return (

@@ -3,7 +3,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import { DashboardRoutes, ICreateNoteDto } from "shared";
+import { CreateNoteInput, DashboardRoutes } from "shared";
 
 import { DashboardLayout } from "@/components/layout/Dashboard";
 import { CrudNote } from "@/components/templates/CrudNote/CrudNote";
@@ -12,7 +12,7 @@ const AddNote = () => {
   const { t } = useTranslation("page-crud-note");
   const router = useRouter();
 
-  const createHandler = async (dto: ICreateNoteDto) => {
+  const createHandler = async (dto: CreateNoteInput) => {
     console.log(dto);
 
     await new Promise((res) => {

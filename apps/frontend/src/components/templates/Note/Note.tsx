@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { DashboardRoutes, INote } from "shared";
+import { DashboardRoutes, Note } from "shared";
 import { twMerge } from "tailwind-merge";
-import { Button, ConfirmModal, Icon, Typography } from "ui";
+import { Button, ConfirmModal, Typography } from "ui";
 
 import { DeleteNoteModal } from "@/components/modules/dashboard/DeleteNoteModal";
 
 import styles from "./Note.module.css";
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
-  note?: INote;
+  note?: Note;
   deleteHandler: () => Promise<void>;
   changeVisibilityHandler: () => Promise<void>;
 }

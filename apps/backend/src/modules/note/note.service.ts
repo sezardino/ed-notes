@@ -1,15 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { CreateNoteInput, UpdateNoteDto } from 'shared';
 
 import { PrismaService } from '@/modules/persistance/persistance.service';
-
-import { CreateNoteDto } from './dto/createNote.dto';
-import { UpdateNoteDto } from './dto/updateNote.dto';
 
 @Injectable()
 export class NoteService {
 	constructor(private readonly prismaService: PrismaService) {}
 
-	async create(dto: CreateNoteDto, userId: string) {
+	async create(dto: CreateNoteInput, userId: string) {
 		return this.prismaService.note.create({ data: { ...dto, ownerId: userId } });
 	}
 
