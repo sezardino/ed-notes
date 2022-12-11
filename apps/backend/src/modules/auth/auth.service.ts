@@ -1,7 +1,7 @@
-import { Injectable, NotAcceptableException } from '@nestjs/common';
+import { Injectable, NotAcceptableException, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { compare, genSalt, hash } from 'bcrypt';
-import { AuthDto } from 'shared';
+import { AuthDto, SessionUser } from 'shared';
 
 import { UserService } from '@/modules/user';
 
@@ -9,7 +9,7 @@ import { UserService } from '@/modules/user';
 export class AuthService {
 	constructor(private readonly userService: UserService, private readonly configService: ConfigService) {}
 
-	async validateUser(email: string, password: string) {
+	async validateUser(email: string, password: string): Promise<SessionUser> {
 		const user = await this.userService.getUser(email);
 
 		if (!user) return null;
@@ -19,8 +19,9 @@ export class AuthService {
 		if (!passwordMatch) return null;
 
 		return {
-			userId: user.id,
-			user: user.email,
+			id: user.id,
+			email: user.email,
+			username: user.username,
 		};
 	}
 
@@ -33,5 +34,13 @@ export class AuthService {
 		const hashPassword = await hash(dto.password, hashSalt);
 
 		return this.userService.createUser({ email: dto.email, username: dto.username, password: hashPassword });
+	}
+
+	async getMe(email: string) {
+		const user = this.userService.getUser(email);
+
+		if (!user) throw new NotFoundException();
+
+		return user;
 	}
 }
