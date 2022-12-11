@@ -12,7 +12,8 @@ datasource db {
 
 model User {
   id       String @id @default(uuid())
-  username String @unique
+  email    String @unique
+  username String @default("")
   password String
   notes    Note[]
 }
@@ -25,4 +26,10 @@ model Note {
   owner      User     @relation(fields: [ownerId], references: [id])
   ownerId    String
   isPublic   Boolean  @default(false)
+}
+
+model Sesion {
+  id     String @id @default(uuid())
+  sesion String
+  token  String
 }
