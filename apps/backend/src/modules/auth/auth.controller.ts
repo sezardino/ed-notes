@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthDto } from 'shared';
 
+import { AuthenticatedGuard, LocalAuthGuard } from '@/guards';
+
 import { AuthService } from './auth.service';
-import { AuthenticatedGuard } from './guard/authenticate.guard';
-import { LocalAuthGuard } from './guard/local.auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -15,14 +15,15 @@ export class AuthController {
 	}
 
 	@UseGuards(LocalAuthGuard)
+	@HttpCode(HttpStatus.OK)
 	@Post('sign-in')
 	signIn(@Request() req) {
 		return { user: req.user };
 	}
 
 	@UseGuards(AuthenticatedGuard)
-	@Get('/protected')
-	getHello(@Request() req): string {
+	@Get('/me')
+	getHello(@Request() req) {
 		return req.user;
 	}
 

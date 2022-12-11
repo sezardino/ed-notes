@@ -13,7 +13,7 @@ import {
 import { CreateNoteDto, UpdateNoteDto } from 'shared';
 
 import { UserId } from '@/decorators/user';
-import { AuthenticatedGuard } from '@/modules/auth/guard/authenticate.guard';
+import { AuthenticatedGuard } from '@/guards';
 
 import { NoteService } from './note.service';
 

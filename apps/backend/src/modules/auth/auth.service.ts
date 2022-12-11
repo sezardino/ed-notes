@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { compare, genSalt, hash } from 'bcrypt';
 import { AuthDto } from 'shared';
 
-import { UserService } from '@/modules/user/user.service';
+import { UserService } from '@/modules/user';
 
 @Injectable()
 export class AuthService {
@@ -25,7 +25,7 @@ export class AuthService {
 	}
 
 	async signUp(dto: AuthDto) {
-		const user = await this.userService.getUser(dto.username);
+		const user = await this.userService.getUser(dto.email);
 
 		if (user) throw new NotAcceptableException('User already exist');
 

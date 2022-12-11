@@ -1,12 +1,10 @@
 import { Module } from '@nestjs/common';
 
-import { PersistanceModule } from '@/modules/persistance/persistance.module';
-
 import { NoteController } from './note.controller';
 import { NoteService } from './note.service';
 
 @Module({
-	imports: [PersistanceModule],
+	imports: [],
 	controllers: [NoteController],
 	providers: [NoteService],
 })

@@ -1,9 +1,14 @@
 {
   "name": "shared",
   "version": "0.0.0",
-  "main": "./index.tsx",
-  "types": "./index.tsx",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "commonjs",
   "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc"
+  },
   "devDependencies": {
     "tsconfig": "*",
     "typescript": "^4.5.2",

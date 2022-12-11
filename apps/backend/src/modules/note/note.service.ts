@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateNoteInput, UpdateNoteDto } from 'shared';
 
-import { PrismaService } from '@/modules/persistance/persistance.service';
+import { PrismaService } from '@/modules/prisma';
 
 @Injectable()
 export class NoteService {
