@@ -2,7 +2,7 @@ import { IsEmail, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-vali
 
 export interface AuthInput {
   email: string;
-  username: string;
+  username?: string;
   password: string;
 }
 

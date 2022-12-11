@@ -31,11 +31,18 @@ export const SignUpForm: React.FC<Props> = (props) => {
       onSubmit={onSubmit}
     >
       <FormField
-        {...register("username", {
-          required: t("username.required") || "",
+        {...register("email", {
+          required: t("email.required") || "",
         })}
+        label={t("email.label")}
+        type="email"
+        placeholder={t("email.placeholder") || ""}
+        error={formState.errors.username?.message}
+      />
+      <FormField
+        {...register("username")}
         label={t("username.label")}
-        type="username"
+        type="text"
         placeholder={t("username.placeholder") || ""}
         error={formState.errors.username?.message}
       />

@@ -8,6 +8,7 @@ import { Button } from "ui";
 import Logo from "@/assets/logo.svg";
 
 import { useAppContext } from "@/context/app";
+import { useAuth } from "@/hooks/useAuth";
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
   isDashboard?: boolean;
@@ -15,6 +16,7 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
 
 export const Header: React.FC<Props> = (props) => {
   const { isDashboard, className, ...rest } = props;
+  const { logout } = useAuth();
   const { t } = useTranslation();
   const { user } = useAppContext();
 
@@ -31,7 +33,11 @@ export const Header: React.FC<Props> = (props) => {
 
   const authButton = (
     <Link legacyBehavior href={AuthRoutes.SingUP}>
-      <Button variant="alternative" text={t("ui:header.logout")} />
+      <Button
+        variant="alternative"
+        text={t("ui:header.logout")}
+        onClick={logout}
+      />
     </Link>
   );
 

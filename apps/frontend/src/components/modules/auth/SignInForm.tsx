@@ -1,12 +1,12 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { AuthInput, PASSWORD_MIN_LENGTH, SignInFormBody } from "shared";
+import { PASSWORD_MIN_LENGTH, SignInFormBody } from "shared";
 import { twMerge } from "tailwind-merge";
 import { Button, FormField, Toggle } from "ui";
 
 interface Props extends React.HTMLProps<HTMLFormElement> {
-  submitHandler: (dto: AuthInput) => void;
+  submitHandler: (dto: SignInFormBody) => Promise<void>;
 }
 
 export const SignInForm: React.FC<Props> = (props) => {
@@ -31,13 +31,13 @@ export const SignInForm: React.FC<Props> = (props) => {
       onSubmit={onSubmit}
     >
       <FormField
-        {...register("username", {
-          required: t("username.required") || "",
+        {...register("email", {
+          required: t("email.required") || "",
         })}
-        label={t("username.label")}
-        type="username"
-        placeholder={t("username.placeholder") || ""}
-        error={formState.errors.username?.message}
+        label={t("email.label")}
+        type="email"
+        placeholder={t("email.placeholder") || ""}
+        error={formState.errors.email?.message}
       />
       <FormField
         {...register("password", {

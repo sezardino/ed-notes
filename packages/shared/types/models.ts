@@ -7,6 +7,7 @@ export interface User {
 }
 
 export type ProtectedUser = Omit<User, "password">;
+export type SessionUser = { id: string; email: string; username: string };
 
 export interface Note {
   id: string;

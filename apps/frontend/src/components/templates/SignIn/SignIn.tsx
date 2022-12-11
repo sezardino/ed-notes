@@ -6,7 +6,7 @@ import { Button, Typography } from "ui";
 import { SignInForm } from "@/components/modules/auth/SignInForm";
 
 interface Props {
-  signInHandler: (dto: AuthInput) => void;
+  signInHandler: (dto: AuthInput) => Promise<void>;
 }
 
 export const SignIn: React.FC<Props> = (props) => {
