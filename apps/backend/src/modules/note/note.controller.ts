@@ -8,12 +8,10 @@ import {
 	Param,
 	Patch,
 	Put,
-	UseGuards,
 } from '@nestjs/common';
-import { CreateNoteDto, UpdateNoteDto } from 'shared';
+import { CreateNoteDto, Note, UpdateNoteDto } from 'shared';
 
 import { UserId } from '@/decorators/user';
-import { AuthenticatedGuard } from '@/guards';
 
 import { NoteService } from './note.service';
 
@@ -21,36 +19,32 @@ import { NoteService } from './note.service';
 export class NoteController {
 	constructor(private readonly noteService: NoteService) {}
 
-	@UseGuards(AuthenticatedGuard)
 	@Put('')
-	create(@UserId() userId: string, @Body() dto: CreateNoteDto) {
+	create(@UserId() userId: string, @Body() dto: CreateNoteDto): Promise<Note> {
 		return this.noteService.create(dto, userId);
 	}
 
-	@UseGuards(AuthenticatedGuard)
 	@Get('all')
-	getAll(@UserId() userId: string) {
+	getAll(@UserId() userId: string): Promise<Note[]> {
 		return this.noteService.getAll(userId);
 	}
 
 	@Get(':id')
-	async getOne(@UserId() userId: string, @Param('id') noteId: string) {
+	async getOne(@UserId() userId: string, @Param('id') noteId: string): Promise<Note> {
 		const note = await this.noteService.getOne(noteId);
 
 		if (!note) throw new NotFoundException();
 
 		if (!note.isPublic && note.ownerId !== userId) throw new NotAcceptableException();
 
-		return { note };
+		return note;
 	}
 
-	@UseGuards(AuthenticatedGuard)
 	@Delete(':id')
-	delete(@UserId() userId: string, @Param('id') noteId: string) {
+	delete(@UserId() userId: string, @Param('id') noteId: string): Promise<Note> {
 		return this.noteService.delete(noteId, userId);
 	}
 
-	@UseGuards(AuthenticatedGuard)
 	@Patch(':id')
 	update(@UserId() userId: string, @Param('id') noteId: string, @Body() dto: UpdateNoteDto) {
 		return this.noteService.update(dto, noteId, userId);

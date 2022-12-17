@@ -16,7 +16,7 @@ export class NoteService {
 	}
 
 	async getAll(ownerId: string) {
-		return this.prismaService.note.findMany({ where: { ownerId } });
+		return this.prismaService.note.findMany({ orderBy: { createdAt: 'asc' }, where: { ownerId } });
 	}
 
 	async update(dto: UpdateNoteDto, noteId: string, userId: string) {

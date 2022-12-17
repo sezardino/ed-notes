@@ -22,7 +22,7 @@ async function bootstrap() {
 			resave: false,
 			saveUninitialized: false,
 			cookie: {
-				path: '',
+				path: '/',
 				httpOnly: true,
 				secure: false,
 				maxAge: 1000 * 60 * 15,
