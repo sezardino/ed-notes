@@ -6,6 +6,8 @@ import { CrudNoteFormBody, Note } from "shared";
 import { twMerge } from "tailwind-merge";
 import { Button, FormField, Toggle, Typography } from "ui";
 
+import { checkUpdates } from "@/helpers";
+
 const Editor = dynamic(() => import("ui/components/Editor"), {
   ssr: false,
   loading: () => <p>Loading...</p>,
@@ -33,12 +35,13 @@ export const CrudNote: React.FC<Props> = (props) => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const categories = data.categories.trim().split(" ").filter(Boolean);
+      const content = { ...data, body, categories };
 
-      await onCrud({
-        ...data,
-        body,
-        categories,
-      });
+      const dto = note ? checkUpdates(note, content) : content;
+
+      if (!Object.keys(dto).length) return;
+
+      await onCrud(dto);
 
       reset();
       setBody("");
