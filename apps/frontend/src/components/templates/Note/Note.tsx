@@ -4,6 +4,7 @@ import { DashboardRoutes, Note } from "shared";
 import { twMerge } from "tailwind-merge";
 import { Button, ConfirmModal, Typography } from "ui";
 
+import { CategoryList } from "@/components/modules/dashboard/CategoryList";
 import { DeleteNoteModal } from "@/components/modules/dashboard/DeleteNoteModal";
 
 import styles from "./Note.module.css";
@@ -28,21 +29,9 @@ export const NoteTemplate: React.FC<Props> = (props) => {
   const categoriesInner = (
     <div className="mt-5">
       <Typography tag="h3" styling="h5" text={t("categories") || ""} />
-      <ul className="mt-2 flex flex-wrap gap-2">
-        {note.categories.map((category) => (
-          <li
-            key={category}
-            className="flex py-1 px-2 rounded-lg dark:bg-gray-50 bg-gray-900"
-          >
-            <Typography
-              tag="span"
-              styling="capture"
-              text={category}
-              className="text-white dark:text-black"
-            />
-          </li>
-        ))}
-      </ul>
+      {!!note.categories.length && (
+        <CategoryList categories={note.categories} className="mt-2" />
+      )}
     </div>
   );
 

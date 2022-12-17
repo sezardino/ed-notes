@@ -6,6 +6,7 @@ import { DashboardRoutes, Note } from "shared";
 import { twMerge } from "tailwind-merge";
 import { Dropdown, Icon, Typography } from "ui";
 
+import { CategoryList } from "./CategoryList";
 import { DeleteNoteModal } from "./DeleteNoteModal";
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
@@ -22,11 +23,11 @@ export const NoteItem: React.FC<Props> = (props) => {
   const dropdownItems = [
     {
       label: t("show"),
-      onClick: () => router.push(DashboardRoutes.EditNote(note.id)),
+      onClick: () => router.push(DashboardRoutes.Note + note.id),
     },
     {
       label: t("edit"),
-      onClick: () => router.push(DashboardRoutes.Note + note.id),
+      onClick: () => router.push(DashboardRoutes.EditNote(note.id)),
     },
     { label: t("delete"), onClick: () => setIsModalOpen(true) },
   ];
@@ -70,20 +71,9 @@ export const NoteItem: React.FC<Props> = (props) => {
           </Dropdown>
         </div>
 
-        <ul className="flex gap-2 flex-wrap">
-          {note.categories.map((category) => (
-            <li
-              key={category}
-              className="py-0.5 px-1  bg-gray-800 rounded-lg shadow dark:bg-white"
-            >
-              <Typography
-                text={category}
-                styling="capture"
-                className="text-white dark:text-black"
-              />
-            </li>
-          ))}
-        </ul>
+        {!!note.categories.length && (
+          <CategoryList categories={note.categories} />
+        )}
       </article>
       <DeleteNoteModal
         isOpen={isModalOpen}
