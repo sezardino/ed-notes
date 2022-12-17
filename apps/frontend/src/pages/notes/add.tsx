@@ -36,6 +36,7 @@ const AddNote = () => {
 };
 
 export default AddNote;
+AddNote.isProtected = true;
 AddNote.getLayout = function getLayout(page: React.ReactNode) {
   return <DashboardLayout>{page}</DashboardLayout>;
 };

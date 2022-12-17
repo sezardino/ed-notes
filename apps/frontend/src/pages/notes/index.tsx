@@ -37,14 +37,15 @@ const Notes = () => {
 };
 
 export default Notes;
+Notes.isProtected = true;
 Notes.getLayout = function getLayout(page: React.ReactNode) {
   return <DashboardLayout>{page}</DashboardLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale as string)),
+      ...(await serverSideTranslations(context.locale as string)),
     },
   };
 };

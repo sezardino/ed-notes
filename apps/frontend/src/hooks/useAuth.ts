@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
-import { AuthInput, SessionUser } from "shared";
+import { useRouter } from "next/router";
+import { AuthInput, AuthRoutes, SessionUser } from "shared";
 
 import { useAppContext } from "@/context/app";
 import { api } from "@/services";
@@ -13,6 +14,7 @@ interface UseAuth {
 
 export const useAuth = (): UseAuth => {
   const { signIn, logOut } = useAppContext();
+  const router = useRouter();
 
   const signInMutation = useMutation<
     AxiosResponse<SessionUser>,
@@ -46,6 +48,7 @@ export const useAuth = (): UseAuth => {
     mutationFn: () => api.get("auth/logout"),
     onSuccess() {
       logOut();
+      router.push(AuthRoutes.SingIn);
     },
   });
 

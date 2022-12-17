@@ -10,7 +10,7 @@ import { NoteTemplate } from "@/components/templates/Note/Note";
 import { useApi } from "@/hooks";
 import { ApiNoteResponse } from "@/pages/api/dashboard/note";
 
-const Note = () => {
+const NotePage = ({ id }: { id: string }) => {
   const { t } = useTranslation();
   const router = useRouter();
   const { data } = useApi<ApiNoteResponse>({
@@ -40,8 +40,9 @@ const Note = () => {
   );
 };
 
-export default Note;
-Note.getLayout = function getLayout(page: React.ReactNode) {
+export default NotePage;
+NotePage.isProtected = true;
+NotePage.getLayout = function getLayout(page: React.ReactNode) {
   return <DashboardLayout>{page}</DashboardLayout>;
 };
 

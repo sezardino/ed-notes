@@ -14,6 +14,7 @@ export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<
   IP
 > & {
   getLayout?: (page: React.ReactElement) => React.ReactNode;
+  isProtected?: boolean;
 };
 
 type AppPropsWithLayout = AppProps & {
@@ -25,7 +26,9 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AppProvider>{getLayout(<Component {...pageProps} />)}</AppProvider>
+      <AppProvider isProtected={Component.isProtected}>
+        {getLayout(<Component {...pageProps} />)}
+      </AppProvider>
     </QueryClientProvider>
   );
 };

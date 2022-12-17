@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
+import { useRouter } from "next/router";
 import React, { useContext, useMemo, useState } from "react";
-import { SessionUser } from "shared";
+import { AuthRoutes, SessionUser } from "shared";
 import { LoadingOverlay } from "ui";
 
 import { api } from "@/services";
@@ -16,8 +17,13 @@ const AppContext = React.createContext({
 
 export const useAppContext = () => useContext(AppContext);
 
-export const AppProvider: React.FC<React.PropsWithChildren> = (props) => {
-  const { children } = props;
+interface AppProviderProps extends React.PropsWithChildren {
+  isProtected?: boolean;
+}
+
+export const AppProvider: React.FC<AppProviderProps> = (props) => {
+  const { children, isProtected } = props;
+  const router = useRouter();
   const { isLoading: isUserFetching } = useQuery<AxiosResponse<SessionUser>>({
     queryKey: ["user"],
     queryFn: () => api.get("auth/me"),
@@ -27,6 +33,10 @@ export const AppProvider: React.FC<React.PropsWithChildren> = (props) => {
     },
     onError() {
       setUser(null);
+
+      if (isProtected) {
+        router.push(AuthRoutes.SingIn);
+      }
     },
   });
   const [isLoading, setIsLoading] = useState(false);

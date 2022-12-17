@@ -11,7 +11,7 @@ import { CrudNote } from "@/components/templates/CrudNote/CrudNote";
 import { useApi } from "@/hooks";
 import { ApiNoteResponse } from "@/pages/api/dashboard/note";
 
-const Note = () => {
+const EditNote = ({ id }: { id: string }) => {
   const { t } = useTranslation("page-crud-note");
 
   const router = useRouter();
@@ -47,8 +47,9 @@ const Note = () => {
   );
 };
 
-export default Note;
-Note.getLayout = function getLayout(page: React.ReactNode) {
+export default EditNote;
+EditNote.isProtected = true;
+EditNote.getLayout = function getLayout(page: React.ReactNode) {
   return <DashboardLayout>{page}</DashboardLayout>;
 };
 
@@ -61,6 +62,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   return {
     props: {
       ...(await serverSideTranslations(locale as string)),
+      id: params.id,
     },
   };
 };
