@@ -32,13 +32,11 @@ export const Header: React.FC<Props> = (props) => {
   );
 
   const authButton = (
-    <Link legacyBehavior href={AuthRoutes.SingUP}>
-      <Button
-        variant="alternative"
-        text={t("ui:header.logout")}
-        onClick={logout}
-      />
-    </Link>
+    <Button
+      variant="alternative"
+      text={t("ui:header.logout")}
+      onClick={logout}
+    />
   );
 
   return (
