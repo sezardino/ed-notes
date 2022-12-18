@@ -5,6 +5,7 @@ import React, { useContext, useMemo, useState } from "react";
 import { AuthRoutes, SessionUser } from "shared";
 import { LoadingOverlay } from "ui";
 
+import { QueryKeys } from "@/const";
 import { api } from "@/services";
 
 const AppContext = React.createContext({
@@ -25,7 +26,7 @@ export const AppProvider: React.FC<AppProviderProps> = (props) => {
   const { children, isProtected } = props;
   const router = useRouter();
   const { isLoading: isUserFetching } = useQuery<AxiosResponse<SessionUser>>({
-    queryKey: ["user"],
+    queryKey: [QueryKeys.user],
     queryFn: () => api.get("auth/me"),
     retry: false,
     onSuccess(data) {

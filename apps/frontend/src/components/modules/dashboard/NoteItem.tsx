@@ -41,7 +41,7 @@ export const NoteItem: React.FC<Props> = (props) => {
           className
         )}
       >
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-start">
           <Link href={DashboardRoutes.Note + note.id} className="group">
             <Typography
               text={note.name}

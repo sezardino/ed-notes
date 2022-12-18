@@ -46,7 +46,7 @@ export class NoteController {
 	}
 
 	@Patch(':id')
-	update(@UserId() userId: string, @Param('id') noteId: string, @Body() dto: UpdateNoteDto) {
+	update(@UserId() userId: string, @Param('id') noteId: string, @Body() dto: UpdateNoteDto): Promise<Note> {
 		return this.noteService.update(dto, noteId, userId);
 	}
 }

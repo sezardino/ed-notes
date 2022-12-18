@@ -1,34 +1,55 @@
+import { useQuery } from "@tanstack/react-query";
+import { AxiosResponse } from "axios";
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Note } from "shared";
 
 import { DashboardLayout } from "@/components/layout/Dashboard";
 import { NotesTemplate } from "@/components/templates/Notes/Notes";
 
-import { useApi } from "@/hooks";
-import { ApiNotesResponse } from "@/pages/api/dashboard/notes";
+import { QueryKeys } from "@/const";
+import { useAppContext } from "@/context/app";
+import { useNote } from "@/hooks";
+import { api } from "@/services";
 
 const Notes = () => {
+  const { user, setLoading } = useAppContext();
   const { t } = useTranslation();
+  const { deleteNote } = useNote();
+  const { data } = useQuery<AxiosResponse<Note[]>>(
+    [QueryKeys.allNotes, user?.id],
+    {
+      queryFn: () => {
+        setLoading(true);
+        return api.get("note/all");
+      },
+      enabled: !!user?.id,
+      onSuccess: () => setLoading(false),
+      onError: () => setLoading(false),
+    }
+  );
+
   const [searchString, setSearchString] = useState("");
 
-  const { data } = useApi<ApiNotesResponse>({
-    endpoint: "/api/dashboard/notes",
-    params: { search: searchString },
-  });
-
-  const deleteHandler = async (id: string) => console.log(id);
+  const deleteHandler = async (id: string) => {
+    try {
+      await deleteNote(id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
       <Head>
-        <title>{t(data?.notes ? "page-notes:title" : "page-loading")}</title>
+        <title>{t(data?.data ? "page-notes:title" : "page-loading")}</title>
       </Head>
 
       <NotesTemplate
-        notes={data?.notes}
+        notes={data?.data}
         setSearch={setSearchString}
         deleteHandler={deleteHandler}
       />

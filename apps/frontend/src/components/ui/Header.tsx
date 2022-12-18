@@ -8,7 +8,7 @@ import { Button } from "ui";
 import Logo from "@/assets/logo.svg";
 
 import { useAppContext } from "@/context/app";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks";
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
   isDashboard?: boolean;

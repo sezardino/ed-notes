@@ -2,15 +2,18 @@ import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { AuthInput, DashboardRoutes } from "shared";
 
 import { AuthLayout } from "@/components/layout/Auth";
 import { SignUp } from "@/components/templates/SignUp/SignUp";
 
-import { useAuth } from "@/hooks/useAuth";
+import { useAppContext } from "@/context/app";
+import { useAuth } from "@/hooks";
 
 const SignUpPage = () => {
   const { signUp } = useAuth();
+  const { user } = useAppContext();
   const router = useRouter();
 
   const signUpHandler = async (dto: AuthInput) => {
@@ -21,6 +24,12 @@ const SignUpPage = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      router.replace(DashboardRoutes.Dashboard);
+    }
+  }, []);
 
   return (
     <>

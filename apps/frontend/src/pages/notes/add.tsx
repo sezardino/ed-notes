@@ -8,20 +8,17 @@ import { CreateNoteInput, DashboardRoutes } from "shared";
 import { DashboardLayout } from "@/components/layout/Dashboard";
 import { CrudNote } from "@/components/templates/CrudNote/CrudNote";
 
+import { useNote } from "@/hooks";
+
 const AddNote = () => {
+  const { createNote } = useNote();
   const { t } = useTranslation("page-crud-note");
   const router = useRouter();
 
   const createHandler = async (dto: CreateNoteInput) => {
-    console.log(dto);
+    const note = await createNote(dto);
 
-    await new Promise((res) => {
-      setTimeout(() => {
-        res("resolve");
-      }, 500);
-    });
-
-    router.push(DashboardRoutes.Notes);
+    router.push(DashboardRoutes.Note + note.data.id);
   };
 
   return (

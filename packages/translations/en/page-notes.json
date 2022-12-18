@@ -1,6 +1,10 @@
 {
   "title": "Notes",
   "subtitle": "Here you can find all of your notes",
+  "no-notes": {
+    "label": "There Are no Notes, you should Create one",
+    "button": "Create"
+  },
   "search": {
     "label": "Search note",
     "button": "Search",

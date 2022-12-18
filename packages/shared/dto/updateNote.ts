@@ -1,10 +1,10 @@
 import { IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export interface UpdateNoteInput {
-  name: string;
-  body: string;
-  categories: string[];
-  isPublic: boolean;
+  name?: string;
+  body?: string;
+  categories?: string[];
+  isPublic?: boolean;
 }
 
 export class UpdateNoteDto implements UpdateNoteInput {
