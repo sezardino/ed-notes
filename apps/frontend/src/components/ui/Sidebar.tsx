@@ -108,9 +108,10 @@ export const Sidebar: React.FC<Props> = (props) => {
 
           {cta && (
             <Button
-              text={cta.label}
+              text={isOpen || isMobileOpen ? cta.label : ""}
               href={cta.href}
-              size="lg"
+              icon={cta.icon}
+              size="xs"
               isFillWidth
               className="mt-10"
             />

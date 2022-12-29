@@ -1,3 +1,4 @@
+import { Icon, IconNames } from "./Icon";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -21,11 +22,13 @@ export interface ButtonProps {
   isFillWidth?: boolean;
   href?: string;
   onClick?: () => void;
+  icon?: IconNames;
   className?: string;
 }
 
 const ButtonComponent = (props: ButtonProps, ref: any) => {
   const {
+    icon,
     isFillWidth = false,
     text,
     size = "base",
@@ -37,7 +40,7 @@ const ButtonComponent = (props: ButtonProps, ref: any) => {
   } = props;
 
   const commonStyles =
-    "font-medium rounded-lg focus:ring-4 focus:outline-none inline-block";
+    "font-medium rounded-lg focus:ring-4 focus:outline-none inline-block flex justify-center items-center";
 
   const styles: Record<ButtonVariant, string> = {
     primary:
@@ -71,9 +74,14 @@ const ButtonComponent = (props: ButtonProps, ref: any) => {
     className
   );
 
+  const iconComponent = icon && (
+    <Icon name={icon} size={24} className={text ? "mr-2" : ""} />
+  );
+
   if (href) {
     return (
       <a ref={ref} {...rest} href={href} className={buttonStyles}>
+        {iconComponent}
         {text}
       </a>
     );
@@ -81,6 +89,7 @@ const ButtonComponent = (props: ButtonProps, ref: any) => {
 
   return (
     <button ref={ref} {...rest} type={type} className={buttonStyles}>
+      {iconComponent}
       {text}
     </button>
   );

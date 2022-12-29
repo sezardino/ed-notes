@@ -1,23 +1,20 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { DashboardRoutes, Note } from "shared";
 import { twMerge } from "tailwind-merge";
 import { Dropdown, Icon, Typography } from "ui";
 
 import { CategoryList } from "./CategoryList";
-import { DeleteNoteModal } from "./DeleteNoteModal";
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
   note: Pick<Note, "id" | "name" | "categories">;
-  deleteHandler: () => Promise<void>;
 }
 
 export const NoteItem: React.FC<Props> = (props) => {
-  const { deleteHandler, note, className, ...rest } = props;
+  const { note, className, ...rest } = props;
   const { t } = useTranslation("component-note-item");
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
   const dropdownItems = [
@@ -29,7 +26,6 @@ export const NoteItem: React.FC<Props> = (props) => {
       label: t("edit"),
       onClick: () => router.push(DashboardRoutes.EditNote(note.id)),
     },
-    { label: t("delete"), onClick: () => setIsModalOpen(true) },
   ];
 
   return (
@@ -75,11 +71,6 @@ export const NoteItem: React.FC<Props> = (props) => {
           <CategoryList categories={note.categories} />
         )}
       </article>
-      <DeleteNoteModal
-        isOpen={isModalOpen}
-        closeHandler={() => setIsModalOpen(false)}
-        confirmHandler={deleteHandler}
-      />
     </>
   );
 };

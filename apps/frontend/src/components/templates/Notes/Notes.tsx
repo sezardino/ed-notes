@@ -11,7 +11,6 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
   notes?: Note[];
   search: string;
   setSearch: (value: string) => void;
-  deleteHandler: (id: string) => Promise<void>;
   currentPage: number;
   changeCurrentPage: (page: number) => void;
   totalCount?: number;
@@ -26,7 +25,6 @@ export const NotesTemplate: React.FC<Props> = (props) => {
     changeCurrentPage,
     currentPage,
     setSearch,
-    deleteHandler,
     notes,
     className,
     ...rest
@@ -38,10 +36,7 @@ export const NotesTemplate: React.FC<Props> = (props) => {
       <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {notes.map((item) => (
           <li key={item.id}>
-            <NoteItem
-              note={item}
-              deleteHandler={() => deleteHandler(item.id)}
-            />
+            <NoteItem note={item} />
           </li>
         ))}
       </ul>
@@ -86,7 +81,6 @@ export const NotesTemplate: React.FC<Props> = (props) => {
           className="w-full md:w-96 max-w-full"
         />
       </div>
-      {JSON.stringify(hasLoading)}
 
       <div className="mt-10 flex flex-col">
         {notes?.length ? notesList : noNotes}

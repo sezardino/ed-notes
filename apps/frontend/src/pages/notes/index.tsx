@@ -53,7 +53,6 @@ const Notes = () => {
         notes={data?.data.notes}
         search={search}
         setSearch={setSearchString}
-        deleteHandler={deleteHandler}
         currentPage={page}
         totalCount={data?.data.count}
         changeCurrentPage={setPage}
