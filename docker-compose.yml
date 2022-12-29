@@ -3,10 +3,8 @@ version: "3.8"
 services:
   postgres:
     image: postgres:latest
-    environment:
-      - POSTGRES_DB=ed-notes
-      - POSTGRES_USER=test
-      - POSTGRES_PASSWORD=test
+    env_file:
+      - ./apps/backend/.env
     volumes:
       - db_data:/var/lib/postgresql/data
     ports:

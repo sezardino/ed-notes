@@ -2,7 +2,8 @@ import React, { useMemo } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
-  totalPages: number;
+  itemsPerPage?: number;
+  totalItems: number;
   currentPage: number;
   onPageChange: (page: number) => void;
   prevText?: string;
@@ -11,14 +12,21 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
 
 export const Pagination: React.FC<Props> = (props) => {
   const {
+    totalItems,
     prevText = "Previous",
     nextText = "Next",
     currentPage,
     onPageChange,
-    totalPages,
+    itemsPerPage = 10,
     className,
     ...rest
   } = props;
+
+  const totalPages = useMemo(() => {
+    return Math.ceil(totalItems / itemsPerPage);
+  }, []);
+
+  if (totalPages <= 1) return null;
 
   const handlePrevClick = () => {
     if (currentPage > 1) {

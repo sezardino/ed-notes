@@ -12,27 +12,27 @@ import { NotesTemplate } from "@/components/templates/Notes/Notes";
 
 import { QueryKeys } from "@/const";
 import { useAppContext } from "@/context/app";
-import { useNote } from "@/hooks";
+import { useDebouncedValue, useNote } from "@/hooks";
 import { api } from "@/services";
 
 const Notes = () => {
   const { user, setLoading } = useAppContext();
   const { t } = useTranslation();
   const { deleteNote } = useNote();
-  const { data } = useQuery<AxiosResponse<Note[]>>(
-    [QueryKeys.allNotes, user?.id],
-    {
-      queryFn: () => {
-        setLoading(true);
-        return api.get("note/all");
-      },
-      enabled: !!user?.id,
-      onSuccess: () => setLoading(false),
-      onError: () => setLoading(false),
-    }
-  );
-
   const [searchString, setSearchString] = useState("");
+  const search = useDebouncedValue(searchString, 1000);
+  const [page, setPage] = useState(1);
+  const { data, isLoading } = useQuery<
+    AxiosResponse<{ notes: Note[]; count: number }>
+  >([QueryKeys.allNotes, user?.id, search, page], {
+    queryFn: () => {
+      setLoading(true);
+      return api.get("note/all", { params: { search, page, limit: 9 } });
+    },
+    enabled: !!user?.id,
+    onSuccess: () => setLoading(false),
+    onError: () => setLoading(false),
+  });
 
   const deleteHandler = async (id: string) => {
     try {
@@ -49,9 +49,14 @@ const Notes = () => {
       </Head>
 
       <NotesTemplate
-        notes={data?.data}
+        hasLoading={isLoading}
+        notes={data?.data.notes}
+        search={search}
         setSearch={setSearchString}
         deleteHandler={deleteHandler}
+        currentPage={page}
+        totalCount={data?.data.count}
+        changeCurrentPage={setPage}
       />
     </>
   );

@@ -8,6 +8,7 @@ import {
 	Param,
 	Patch,
 	Put,
+	Query,
 } from '@nestjs/common';
 import { CreateNoteDto, Note, UpdateNoteDto } from 'shared';
 
@@ -25,8 +26,13 @@ export class NoteController {
 	}
 
 	@Get('all')
-	getAll(@UserId() userId: string): Promise<Note[]> {
-		return this.noteService.getAll(userId);
+	getAll(
+		@UserId() userId: string,
+		@Query('search') search: string,
+		@Query('page') page: string,
+		@Query('limit') limit: string,
+	): Promise<{ notes: Note[]; count: number }> {
+		return this.noteService.getAll(userId, search, page, limit);
 	}
 
 	@Get(':id')

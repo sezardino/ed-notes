@@ -39,7 +39,6 @@ export const NoteTemplate: React.FC<Props> = (props) => {
     <>
       <div {...rest} className={twMerge(className)}>
         <header className="flex flex-wrap gap-5 justify-between items-center">
-          <Icon name={note.isPublic ? "MdWorkOutline" : "MdLock"} />
           <Typography tag="h1" styling="h1" text={note.name} />
           <div className="flex flex-wrap items-center gap-2">
             <Button

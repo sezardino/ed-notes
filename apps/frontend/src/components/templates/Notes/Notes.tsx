@@ -1,45 +1,76 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { DashboardRoutes, Note } from "shared";
+import { DashboardRoutes, Note, PaginationCount } from "shared";
 import { twMerge } from "tailwind-merge";
-import { Button, Typography } from "ui";
+import { Button, Pagination, Typography } from "ui";
 
 import { NoteItem } from "@/components/modules/dashboard/NoteItem";
 import { SearchInput } from "@/components/modules/dashboard/SearchInput";
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
   notes?: Note[];
-  deleteHandler: (id: string) => Promise<void>;
+  search: string;
   setSearch: (value: string) => void;
+  deleteHandler: (id: string) => Promise<void>;
+  currentPage: number;
+  changeCurrentPage: (page: number) => void;
+  totalCount?: number;
+  hasLoading: boolean;
 }
 
 export const NotesTemplate: React.FC<Props> = (props) => {
-  const { setSearch, deleteHandler, notes, className, ...rest } = props;
+  const {
+    hasLoading,
+    search,
+    totalCount,
+    changeCurrentPage,
+    currentPage,
+    setSearch,
+    deleteHandler,
+    notes,
+    className,
+    ...rest
+  } = props;
   const { t } = useTranslation("page-notes");
 
-  const notesList = notes && (
-    <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-      {notes.map((item) => (
-        <li key={item.id}>
-          <NoteItem note={item} deleteHandler={() => deleteHandler(item.id)} />
-        </li>
-      ))}
-    </ul>
+  const notesList = notes && totalCount && (
+    <>
+      <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {notes.map((item) => (
+          <li key={item.id}>
+            <NoteItem
+              note={item}
+              deleteHandler={() => deleteHandler(item.id)}
+            />
+          </li>
+        ))}
+      </ul>
+      <Pagination
+        currentPage={currentPage}
+        onPageChange={changeCurrentPage}
+        totalItems={totalCount}
+        itemsPerPage={PaginationCount.notes}
+        className="mt-7"
+      />
+    </>
   );
 
   const noNotes = (
     <>
       <Typography
-        text={t("no-notes.label") || ""}
+        text={t(search ? "search.no-notes" : "no-notes.label") || ""}
         className="mt-10 text-center"
       />
-      <Button
-        size="xl"
-        variant="green"
-        text={t("no-notes.button")}
-        href={DashboardRoutes.AddNote}
-        className="mt-5 mx-auto"
-      />
+
+      {!search && (
+        <Button
+          size="xl"
+          variant="green"
+          text={t("no-notes.button")}
+          href={DashboardRoutes.AddNote}
+          className="mt-5 mx-auto"
+        />
+      )}
     </>
   );
 
@@ -55,6 +86,8 @@ export const NotesTemplate: React.FC<Props> = (props) => {
           className="w-full md:w-96 max-w-full"
         />
       </div>
+      {JSON.stringify(hasLoading)}
+
       <div className="mt-10 flex flex-col">
         {notes?.length ? notesList : noNotes}
       </div>
