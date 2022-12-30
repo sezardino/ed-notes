@@ -20,7 +20,7 @@ const Dashboard = () => {
 export default Dashboard;
 Dashboard.isProtected = true;
 Dashboard.getLayout = function getLayout(page: React.ReactNode) {
-  return <DashboardLayout title="page-dashboard:title">{page}</DashboardLayout>;
+  return <DashboardLayout>{page}</DashboardLayout>;
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {

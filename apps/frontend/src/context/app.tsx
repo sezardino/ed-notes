@@ -23,7 +23,7 @@ interface AppProviderProps extends React.PropsWithChildren {
 }
 
 export const AppProvider: React.FC<AppProviderProps> = (props) => {
-  const { children, isProtected } = props;
+  const { children, isProtected = false } = props;
   const router = useRouter();
   const { isLoading: isUserFetching } = useQuery<AxiosResponse<SessionUser>>({
     queryKey: [QueryKeys.user],

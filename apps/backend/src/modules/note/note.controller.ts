@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { CreateNoteDto, Note, UpdateNoteDto } from 'shared';
 
+import { Public } from '@/decorators';
 import { UserId } from '@/decorators/user';
 
 import { NoteService } from './note.service';
@@ -35,6 +36,7 @@ export class NoteController {
 		return this.noteService.getAll(userId, search, page, limit);
 	}
 
+	@Public()
 	@Get(':id')
 	async getOne(@UserId() userId: string, @Param('id') noteId: string): Promise<Note> {
 		const note = await this.noteService.getOne(noteId);
