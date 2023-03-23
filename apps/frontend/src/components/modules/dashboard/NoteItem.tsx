@@ -1,34 +1,31 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { DashboardRoutes, INote } from "shared";
+import { DashboardRoutes, Note } from "shared";
 import { twMerge } from "tailwind-merge";
 import { Dropdown, Icon, Typography } from "ui";
 
-import { DeleteNoteModal } from "./DeleteNoteModal";
+import { CategoryList } from "./CategoryList";
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
-  note: Pick<INote, "id" | "name" | "categories">;
-  deleteHandler: () => Promise<void>;
+  note: Pick<Note, "id" | "name" | "categories">;
 }
 
 export const NoteItem: React.FC<Props> = (props) => {
-  const { deleteHandler, note, className, ...rest } = props;
+  const { note, className, ...rest } = props;
   const { t } = useTranslation("component-note-item");
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
   const dropdownItems = [
     {
       label: t("show"),
-      onClick: () => router.push(DashboardRoutes.EditNote(note.id)),
+      onClick: () => router.push(DashboardRoutes.Note + note.id),
     },
     {
       label: t("edit"),
-      onClick: () => router.push(DashboardRoutes.Note + note.id),
+      onClick: () => router.push(DashboardRoutes.EditNote(note.id)),
     },
-    { label: t("delete"), onClick: () => setIsModalOpen(true) },
   ];
 
   return (
@@ -40,7 +37,7 @@ export const NoteItem: React.FC<Props> = (props) => {
           className
         )}
       >
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-start">
           <Link href={DashboardRoutes.Note + note.id} className="group">
             <Typography
               text={note.name}
@@ -70,26 +67,10 @@ export const NoteItem: React.FC<Props> = (props) => {
           </Dropdown>
         </div>
 
-        <ul className="flex gap-2 flex-wrap">
-          {note.categories.map((category) => (
-            <li
-              key={category}
-              className="py-0.5 px-1  bg-gray-800 rounded-lg shadow dark:bg-white"
-            >
-              <Typography
-                text={category}
-                styling="capture"
-                className="text-white dark:text-black"
-              />
-            </li>
-          ))}
-        </ul>
+        {!!note.categories.length && (
+          <CategoryList categories={note.categories} />
+        )}
       </article>
-      <DeleteNoteModal
-        isOpen={isModalOpen}
-        closeHandler={() => setIsModalOpen(false)}
-        confirmHandler={deleteHandler}
-      />
     </>
   );
 };

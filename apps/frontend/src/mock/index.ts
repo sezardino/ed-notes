@@ -1,9 +1,9 @@
 import { faker } from "@faker-js/faker";
-import { INote } from "shared";
+import { Note } from "shared";
 
 import { body } from "./body";
 
-const createMockNotes = (): INote[] => {
+const createMockNotes = (): Note[] => {
   return [...Array(25).keys()].map(() => ({
     name: faker.lorem.words(3),
     id: faker.datatype.uuid(),

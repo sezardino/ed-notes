@@ -1,34 +1,40 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
+import { Request as ExpressRequest } from 'express';
+import { AuthDto, SessionUser } from 'shared';
+
+import { Public, User } from '@/decorators';
+import { LocalAuthGuard } from '@/guards';
 
 import { AuthService } from './auth.service';
-import { AuthDto } from './dto/auth.dto';
-import { AuthenticatedGuard } from './guard/authenticate.guard';
-import { LocalAuthGuard } from './guard/local.auth.guard';
 
 @Controller('auth')
 export class AuthController {
 	constructor(private readonly authService: AuthService) {}
 
+	@Public()
 	@Post('sign-up')
 	signUp(@Body() dto: AuthDto) {
 		return this.authService.signUp(dto);
 	}
 
+	@Public()
 	@UseGuards(LocalAuthGuard)
+	@HttpCode(HttpStatus.OK)
 	@Post('sign-in')
-	signIn(@Request() req) {
-		return { user: req.user };
+	signIn(@User() user: SessionUser) {
+		return user;
 	}
 
-	@UseGuards(AuthenticatedGuard)
-	@Get('/protected')
-	getHello(@Request() req): string {
-		return req.user;
+	@HttpCode(HttpStatus.OK)
+	@Get('/me')
+	getHello(@User() user: SessionUser): SessionUser {
+		return user;
 	}
 
+	@HttpCode(HttpStatus.OK)
 	@Get('/logout')
-	logout(@Request() req) {
-		req.session.destroy();
+	logout(@Request() req: ExpressRequest) {
+		req.session.destroy((err) => console.log(err));
 		return { message: 'The user session has ended' };
 	}
 }

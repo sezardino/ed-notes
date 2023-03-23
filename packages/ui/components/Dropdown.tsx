@@ -64,7 +64,7 @@ export const Dropdown = <Item,>(props: Props<Item>) => {
           className={twMerge("absolute z-30 w-44", positions[position])}
         >
           <ul
-            className="py-1 text-sm text-gray-700 dark:text-gray-200 divide-y divide-gray-100 bg-white dark:bg-gray-700 rounded shadow"
+            className="py-1 text-sm border border-gray-100 text-gray-700 dark:text-gray-200 divide-y divide-gray-100 bg-white dark:bg-gray-700 rounded shadow"
             aria-labelledby={name}
           >
             {items.map((item, index) => (

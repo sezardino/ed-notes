@@ -3,25 +3,22 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import { DashboardRoutes, ICreateNoteDto } from "shared";
+import { CreateNoteInput, DashboardRoutes } from "shared";
 
 import { DashboardLayout } from "@/components/layout/Dashboard";
 import { CrudNote } from "@/components/templates/CrudNote/CrudNote";
 
+import { useNote } from "@/hooks";
+
 const AddNote = () => {
+  const { createNote } = useNote();
   const { t } = useTranslation("page-crud-note");
   const router = useRouter();
 
-  const createHandler = async (dto: ICreateNoteDto) => {
-    console.log(dto);
+  const createHandler = async (dto: CreateNoteInput) => {
+    const note = await createNote(dto);
 
-    await new Promise((res) => {
-      setTimeout(() => {
-        res("resolve");
-      }, 500);
-    });
-
-    router.push(DashboardRoutes.Notes);
+    router.push(DashboardRoutes.Note + note.data.id);
   };
 
   return (
@@ -36,6 +33,7 @@ const AddNote = () => {
 };
 
 export default AddNote;
+AddNote.isProtected = true;
 AddNote.getLayout = function getLayout(page: React.ReactNode) {
   return <DashboardLayout>{page}</DashboardLayout>;
 };

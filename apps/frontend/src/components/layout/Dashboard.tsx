@@ -16,12 +16,13 @@ const links: SidebarLink[] = [
     href: DashboardRoutes.Notes,
     icon: "MdOutlineNote",
   },
-  {
-    label: "Add Note",
-    href: DashboardRoutes.AddNote,
-    icon: "MdOutlineNoteAdd",
-  },
 ];
+
+const cta: SidebarLink = {
+  label: "Add Note",
+  href: DashboardRoutes.AddNote,
+  icon: "MdOutlineNoteAdd",
+};
 
 interface Props extends React.HTMLProps<HTMLDivElement> {}
 
@@ -36,7 +37,7 @@ export const DashboardLayout: React.FC<Props> = (props) => {
       >
         <Header isDashboard />
         <div className="h-full grid sm:grid-cols-[auto_1fr]">
-          <Sidebar links={links} />
+          <Sidebar links={links} cta={cta} />
           <main className="w-full max-w-7xl px-5 py-10 sm:px-12 sm:py-16">
             {children}
           </main>

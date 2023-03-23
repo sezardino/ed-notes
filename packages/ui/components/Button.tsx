@@ -1,3 +1,4 @@
+import { Icon, IconNames } from "./Icon";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -18,13 +19,17 @@ export interface ButtonProps {
   variant?: ButtonVariant;
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"];
   size?: ButtonSizes;
+  isFillWidth?: boolean;
   href?: string;
   onClick?: () => void;
+  icon?: IconNames;
   className?: string;
 }
 
 const ButtonComponent = (props: ButtonProps, ref: any) => {
   const {
+    icon,
+    isFillWidth = false,
     text,
     size = "base",
     type = "button",
@@ -34,7 +39,8 @@ const ButtonComponent = (props: ButtonProps, ref: any) => {
     ...rest
   } = props;
 
-  const commonStyles = "font-medium rounded-lg focus:ring-4 focus:outline-none";
+  const commonStyles =
+    "font-medium rounded-lg focus:ring-4 focus:outline-none inline-block flex justify-center items-center";
 
   const styles: Record<ButtonVariant, string> = {
     primary:
@@ -64,12 +70,18 @@ const ButtonComponent = (props: ButtonProps, ref: any) => {
     commonStyles,
     styles[variant],
     variant !== "link" && sizes[size],
+    isFillWidth && "w-full text-center",
     className
+  );
+
+  const iconComponent = icon && (
+    <Icon name={icon} size={24} className={text ? "mr-2" : ""} />
   );
 
   if (href) {
     return (
       <a ref={ref} {...rest} href={href} className={buttonStyles}>
+        {iconComponent}
         {text}
       </a>
     );
@@ -77,6 +89,7 @@ const ButtonComponent = (props: ButtonProps, ref: any) => {
 
   return (
     <button ref={ref} {...rest} type={type} className={buttonStyles}>
+      {iconComponent}
       {text}
     </button>
   );

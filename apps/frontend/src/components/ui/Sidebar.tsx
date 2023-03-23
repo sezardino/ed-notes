@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { twMerge } from "tailwind-merge";
-import { Icon, IconNames } from "ui";
+import { Button, Icon, IconNames } from "ui";
 
 export interface SidebarLink {
   label: string;
@@ -15,6 +15,7 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
   links: SidebarLink[];
   extraLinks?: SidebarLink[];
   footerLinks?: SidebarLink[];
+  cta?: SidebarLink;
 }
 
 interface SidebarLinkProps extends React.HTMLProps<HTMLLIElement> {
@@ -53,7 +54,7 @@ const SidebarLink: React.FC<SidebarLinkProps> = (props) => {
 };
 
 export const Sidebar: React.FC<Props> = (props) => {
-  const { links, extraLinks, footerLinks, className, ...rest } = props;
+  const { cta, links, extraLinks, footerLinks, className, ...rest } = props;
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -103,6 +104,17 @@ export const Sidebar: React.FC<Props> = (props) => {
                 />
               ))}
             </ul>
+          )}
+
+          {cta && (
+            <Button
+              text={isOpen || isMobileOpen ? cta.label : ""}
+              href={cta.href}
+              icon={cta.icon}
+              size="xs"
+              isFillWidth
+              className="mt-10"
+            />
           )}
         </div>
         {isOpen && footerLinks && (

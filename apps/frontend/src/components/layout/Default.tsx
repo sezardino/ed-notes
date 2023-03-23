@@ -10,7 +10,7 @@ export const DefaultLayout: React.FC<Props> = (props) => {
   return (
     <>
       <Header />
-      {children}
+      <div className="container mx-auto mt-5">{children}</div>
     </>
   );
 };

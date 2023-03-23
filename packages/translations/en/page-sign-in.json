@@ -1,9 +1,9 @@
 {
   "title": "Sign in to your account",
-  "username": {
-    "label": "Your username",
-    "placeholder": "racoon23",
-    "required": "Username is required field"
+  "email": {
+    "label": "Your email",
+    "placeholder": "big-guy@mail.com",
+    "required": "Email is required field"
   },
   "password": {
     "label": "Your password",

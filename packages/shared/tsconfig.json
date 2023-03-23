@@ -1,4 +1,11 @@
 {
-  "extends": "tsconfig/base.json",
-  "include": ["."]
+  "extends": "tsconfig/nestjs.json",
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"],
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "module": "commonjs",
+    "outDir": "./dist"
+  }
 }

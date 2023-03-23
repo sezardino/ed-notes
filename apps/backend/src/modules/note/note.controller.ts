@@ -8,52 +8,53 @@ import {
 	Param,
 	Patch,
 	Put,
-	UseGuards,
+	Query,
 } from '@nestjs/common';
+import { CreateNoteDto, Note, UpdateNoteDto } from 'shared';
 
+import { Public } from '@/decorators';
 import { UserId } from '@/decorators/user';
-import { AuthenticatedGuard } from '@/modules/auth/guard/authenticate.guard';
 
-import { CreateNoteDto } from './dto/createNote.dto';
-import { UpdateNoteDto } from './dto/updateNote.dto';
 import { NoteService } from './note.service';
 
 @Controller('note')
 export class NoteController {
 	constructor(private readonly noteService: NoteService) {}
 
-	@UseGuards(AuthenticatedGuard)
 	@Put('')
-	create(@UserId() userId: string, @Body() dto: CreateNoteDto) {
+	create(@UserId() userId: string, @Body() dto: CreateNoteDto): Promise<Note> {
 		return this.noteService.create(dto, userId);
 	}
 
-	@UseGuards(AuthenticatedGuard)
 	@Get('all')
-	getAll(@UserId() userId: string) {
-		return this.noteService.getAll(userId);
+	getAll(
+		@UserId() userId: string,
+		@Query('search') search: string,
+		@Query('page') page: string,
+		@Query('limit') limit: string,
+	): Promise<{ notes: Note[]; count: number }> {
+		return this.noteService.getAll(userId, search, page, limit);
 	}
 
+	@Public()
 	@Get(':id')
-	async getOne(@UserId() userId: string, @Param('id') noteId: string) {
+	async getOne(@UserId() userId: string, @Param('id') noteId: string): Promise<Note> {
 		const note = await this.noteService.getOne(noteId);
 
 		if (!note) throw new NotFoundException();
 
 		if (!note.isPublic && note.ownerId !== userId) throw new NotAcceptableException();
 
-		return { note };
+		return note;
 	}
 
-	@UseGuards(AuthenticatedGuard)
 	@Delete(':id')
-	delete(@UserId() userId: string, @Param('id') noteId: string) {
+	delete(@UserId() userId: string, @Param('id') noteId: string): Promise<Note> {
 		return this.noteService.delete(noteId, userId);
 	}
 
-	@UseGuards(AuthenticatedGuard)
 	@Patch(':id')
-	update(@UserId() userId: string, @Param('id') noteId: string, @Body() dto: UpdateNoteDto) {
+	update(@UserId() userId: string, @Param('id') noteId: string, @Body() dto: UpdateNoteDto): Promise<Note> {
 		return this.noteService.update(dto, noteId, userId);
 	}
 }

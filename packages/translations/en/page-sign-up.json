@@ -1,10 +1,15 @@
 {
   "title": "Create new account",
+  "email": {
+    "label": "Your email",
+    "placeholder": "big-guy@mail.com",
+    "required": "Email is required field",
+    "in-use": "{{email}} already in use"
+  },
   "username": {
-    "label": "Create unique username",
+    "label": "Create username",
     "placeholder": "unique-unicorn42",
-    "required": "Username is required field",
-    "in-use": "{{username}} already in use"
+    "required": "Username is required field"
   },
   "password": {
     "label": "Create not simple password",

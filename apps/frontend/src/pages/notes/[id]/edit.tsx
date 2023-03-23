@@ -1,40 +1,40 @@
+import { useQuery } from "@tanstack/react-query";
+import { AxiosResponse } from "axios";
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import { DashboardRoutes, IUpdateNoteDto } from "shared";
+import { DashboardRoutes, Note, UpdateNoteInput } from "shared";
 
 import { DashboardLayout } from "@/components/layout/Dashboard";
 import { CrudNote } from "@/components/templates/CrudNote/CrudNote";
 
-import { useApi } from "@/hooks";
-import { ApiNoteResponse } from "@/pages/api/dashboard/note";
+import { QueryKeys } from "@/const";
+import { useAppContext } from "@/context/app";
+import { useNote } from "@/hooks";
+import { api } from "@/services";
 
-const Note = () => {
+const EditNote = ({ id }: { id: string }) => {
   const { t } = useTranslation("page-crud-note");
+  const { user, setLoading } = useAppContext();
+  const { updateNote } = useNote();
 
   const router = useRouter();
-  const { data } = useApi<ApiNoteResponse>({
-    endpoint: "/api/dashboard/note",
-    params: { id: router.query.id },
-    onSuccess(data) {
-      if (data?.note) return;
-
-      // router.push("/404");
+  const { data } = useQuery<AxiosResponse<Note>>([QueryKeys.note, id], {
+    queryFn: () => {
+      setLoading(true);
+      return api.get(`note/${id}`);
     },
+    enabled: !!user?.id,
+    onSuccess: () => setLoading(false),
+    onError: () => setLoading(false),
   });
 
-  const editHandler = async (dto: IUpdateNoteDto) => {
-    console.log(dto);
+  const editHandler = async (dto: UpdateNoteInput) => {
+    await updateNote({ id, dto });
 
-    await new Promise((res) => {
-      setTimeout(() => {
-        res("resolve");
-      }, 500);
-    });
-
-    router.push(DashboardRoutes.Notes);
+    router.push(DashboardRoutes.Note + id);
   };
 
   return (
@@ -42,13 +42,14 @@ const Note = () => {
       <Head>
         <title>{t("edit-title")}</title>
       </Head>
-      {data?.note && <CrudNote onCrud={editHandler} note={data.note} />}
+      {data?.data && <CrudNote onCrud={editHandler} note={data.data} />}
     </>
   );
 };
 
-export default Note;
-Note.getLayout = function getLayout(page: React.ReactNode) {
+export default EditNote;
+EditNote.isProtected = true;
+EditNote.getLayout = function getLayout(page: React.ReactNode) {
   return <DashboardLayout>{page}</DashboardLayout>;
 };
 
@@ -61,6 +62,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   return {
     props: {
       ...(await serverSideTranslations(locale as string)),
+      id: params.id,
     },
   };
 };

@@ -1,9 +1,14 @@
 {
   "title": "Notes",
   "subtitle": "Here you can find all of your notes",
+  "no-notes": {
+    "label": "There Are no Notes, you should Create one",
+    "button": "Create"
+  },
   "search": {
     "label": "Search note",
-    "button": "Search",
-    "placeholder": "Name, Category, Something in body..."
+    "reset": "Reset Filter",
+    "placeholder": "Name, Category, Something in body...",
+    "no-notes": "The are no notes accept your criteria"
   }
 }
